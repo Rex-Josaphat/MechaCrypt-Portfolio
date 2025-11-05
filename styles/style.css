@@ -1,0 +1,226 @@
+/* ==========================================================
+   CORE STYLESHEET — MechaCrypt Website Theme
+   ========================================================== */
+
+
+/* ----------------------------------------------------------
+   1. COLOR PALETTE & BASE VARIABLES
+   ---------------------------------------------------------- */
+:root {
+  --bg: #151c33;          /* main background base tone */
+  --nav: #0a0f1f;         /* navbar tone (darker for contrast) */
+  --card: #202943;        /* card panels and surface contrast */
+  --muted: #aab3c2;       /* subdued text color */
+  --accent: #5aa9ff;      /* cyan-blue accent color */
+  --good: #22c55e;        /* success / positive feedback */
+  --warn: #f59e0b;        /* warning / amber tone */
+  --bad: #ef4444;         /* error / alert tone */
+}
+
+
+/* ----------------------------------------------------------
+   2. BODY & GLOBAL TYPOGRAPHY
+   ---------------------------------------------------------- */
+body {
+  background: radial-gradient(1000px 700px at 25% 15%, #20305c 0%, var(--bg) 80%);
+  color: #f3f6fc;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, Noto Sans;
+  line-height: 1.75;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+
+/* ----------------------------------------------------------
+   3. NAVBAR STYLING & ALIGNMENT
+   ---------------------------------------------------------- */
+
+/* Navbar container setup */
+.navbar, header.navbar {
+  background: var(--nav) !important;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* distribute links & icons */
+  flex-wrap: wrap;
+  position: relative;
+  min-height: 56px; /* visual balance */
+}
+
+/* Navbar title (website name) */
+.navbar-title {
+  color: #f5f8ff !important;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+/* Center navigation links group (Overview, System, etc.) */
+.navbar-nav-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex: 1;
+}
+
+/* Right-side icons (GitHub, Paper-plane) */
+.navbar-nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+/* Navigation link text with flowing light animation */
+.navbar a {
+  position: relative;
+  color: #d8dde7 !important;
+  text-decoration: none;
+  padding: 4px 0;
+  background: linear-gradient(90deg, var(--accent), #9cd1ff, var(--accent));
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.6s ease, color 0.25s ease;
+}
+
+
+/* Flowy “energy” animation for link hover */
+.navbar a:hover {
+  animation: textFlow 1.8s linear infinite;
+  filter: drop-shadow(0 0 10px rgba(90,169,255,0.75));
+  opacity: 1;
+  text-shadow: 0 0 12px rgba(150, 210, 255, 0.6), 
+               0 0 22px rgba(90,169,255,0.4);
+  transition: filter 0.3s ease, text-shadow 0.3s ease;
+}
+
+@keyframes textFlow {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ---------- Navbar Icon Styling (Static Blue Shade, No Hover) ---------- */
+.navbar .fa,
+.navbar .bi {
+  font-size: 1.3rem;
+  color: var(--accent); /* keep steady blue tone */
+  transition: none;     /* disable hover animations */
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  -webkit-text-fill-color: var(--accent) !important;
+}
+
+
+/* Ensure icons align neatly with text */
+.navbar .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+
+/* ----------------------------------------------------------
+   4. HEADINGS & TYPOGRAPHY STYLES
+   ---------------------------------------------------------- */
+h1, h2, h3, h4 {
+  font-weight: 600;
+  color: #f8faff;
+}
+
+
+/* ----------------------------------------------------------
+   5. CARD COMPONENTS
+   ---------------------------------------------------------- */
+.card {
+  background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 16px;
+  padding: 22px 26px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+  margin-bottom: 26px;
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 30px rgba(90,169,255,.25);
+}
+
+
+/* ----------------------------------------------------------
+   6. GRID LAYOUT
+   ---------------------------------------------------------- */
+.grid {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 22px;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ----------------------------------------------------------
+   7. META ELEMENTS (BADGES, FOOTER, ETC.)
+   ---------------------------------------------------------- */
+.badge {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: 1px solid #2a3557;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 45px;
+}
+
+/* ==========================================================
+   FINAL FOOTER CONTAINER FIX (KILL WHITE WRAPPER)
+   ========================================================== */
+
+/* Remove background from Quarto's footer wrapper containers */
+.page-footer,
+.nav-footer,
+.quarto-page-footer,
+div.nav-footer,
+div.page-footer {
+  background: #0a0f1f !important;         /* same dark tone as your footer */
+  background-color: #0a0f1f !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: var(--muted) !important;
+}
+
+/* Remove Bootstrap white body variable bleed */
+:root {
+  --bs-body-bg: transparent !important;
+}
+
+/* Keep your actual footer dark and consistent */
+footer.footer {
+  background: #0a0f1f !important;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 18px 0;
+  font-size: 13px;
+  letter-spacing: 0.25px;
+  text-align: center;
+  color: var(--muted) !important;
+}
