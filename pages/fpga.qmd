@@ -1,0 +1,9 @@
+---
+title: "FPGA Design"
+format:
+  html: 
+    code-links:
+      - text: "Code Repository"
+        href: https://github.com/chrwu17/MechaCrypt.git
+        icon: github
+---

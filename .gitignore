@@ -1,0 +1,10 @@
+.quarto/
+/.quarto/
+/_site/
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+*.swo
+**/*.quarto_ipynb
+/_extensions/

@@ -1,0 +1,43 @@
+project:
+  type: website
+
+website:
+  title: "MechaCrypt"
+  navbar:
+    background: "#0a0f1f"
+    left:
+      - text: Home
+        href: pages/index.qmd
+      - text: AES Overview
+        href: pages/aes.qmd
+      - text: FPGA Design
+        href: pages/fpga.qmd
+      - text: MCU Design
+        href: pages/mcu.qmd
+      - text: Documentation
+        href: pages/documentation.qmd
+      - text: Results
+        href: pages/results.qmd
+      - text: The Team
+        href: pages/team.qmd
+    right:
+      - icon: github
+        href: https://github.com/chrwu17/MechaCrypt.git
+        aria-label: "GitHub Repository"
+  page-footer:
+    center: |
+      © 2025 **MechaCrypt Project**. All Rights Reserved  
+      Designed and developed by **Josaphat Uwizeye Ngoga** & **Christian Wu**
+
+
+format:
+  html:
+    theme: default
+    css: styles/style.css
+    toc: true
+    toc-depth: 2
+    page-layout: full
+    link-external-newwindow: true
+
+filters: 
+  - lightbox
