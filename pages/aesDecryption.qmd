@@ -1,0 +1,15 @@
+---
+title: "AES Encryption"
+vars:
+  aes-standard-pdf-url: /assets/doc/NIST.FIPS.197-upd1.pdf
+format:
+  html: 
+    code-links:
+      - text: "Code Repository"
+        href: https://github.com/chrwu17/MechaCrypt.git
+        icon: github
+    other-links:
+      - text: "AES Standard: NIST FIPS 197"
+        href: /assets/docs/NIST.FIPS.197-upd1.pdf?inline=true
+        icon: file-earmark-pdf
+---

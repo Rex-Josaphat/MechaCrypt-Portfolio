@@ -1,6 +1,8 @@
 project:
   type: website
-
+  resources: 
+    - "*.html"
+    - "/assets/**/*.pdf"
 website:
   title: "MechaCrypt"
   navbar:
@@ -8,8 +10,12 @@ website:
     left:
       - text: Home
         href: pages/index.qmd
-      - text: AES Overview
-        href: pages/aes.qmd
+      - text: AES Overview  # Setup Dropdown list for labs
+        menu: 
+          - text: AES Encryption
+            href: pages/aesEncryption.qmd
+          - text: AES Decryption
+            href: pages/aesDecryption.qmd
       - text: FPGA Design
         href: pages/fpga.qmd
       - text: MCU Design
