@@ -4,5 +4,7 @@ Welcome to **MechaCrypt**. This is an experimental hardware communication platfo
 
 ---
 
-<p align="center"> © 2025 **MechaCrypt Project**. All rights reserved.  
-Designed and developed by **Josaphat Uwizeye Ngoga** & **Christian Wu**.</p>
+<p align="center">
+  © 2025 <strong>MechaCrypt Project</strong>. All rights reserved.<br>
+  Designed and developed by <strong>Josaphat Uwizeye Ngoga</strong> & <strong>Christian Wu</strong>.
+</p>
