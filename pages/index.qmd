@@ -1,7 +1,4 @@
 ---
-title: "MechaCrypt"
+title: "MechaCrypt: A Solenoid-Based Encrypted Data Transmission System"
 ---
-
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+# Project Overview
