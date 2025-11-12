@@ -5,12 +5,13 @@ project:
     - "/assets/**/*.pdf"
 website:
   title: "MechaCrypt"
+  favicon: "/assets/images/logo_mechacrypt.ico"
   navbar:
     background: "#0a0f1f"
     left:
       - text: Home
         href: pages/index.qmd
-      - text: AES Overview  # Setup Dropdown list for labs
+      - text: AES Overview
         menu: 
           - text: AES Encryption
             href: pages/aesEncryption.qmd
@@ -30,10 +31,15 @@ website:
       - icon: github
         href: https://github.com/chrwu17/MechaCrypt.git
         aria-label: "GitHub Repository"
+# page-footer:
+  # center: |
+    # © 2025 **MechaCrypt Project**. All Rights Reserved  
+    # Designed and developed by [**Josaphat Uwizeye Ngoga**](https://jngoga.vercel.app/) & [**Christian Wu**](https://chrwu17.github.io/hmc-e155-portfolio/)
+
   page-footer:
     center: |
-      © 2025 **MechaCrypt Project**. All Rights Reserved  
-      Designed and developed by **Josaphat Uwizeye Ngoga** & **Christian Wu**
+      © 2025 <strong>MechaCrypt Project</strong>. All Rights Reserved  
+      Designed and developed by <a href="https://jngoga.vercel.app/" target="_blank"><strong>Josaphat Uwizeye Ngoga</strong></a> & <a href="https://chrwu17.github.io/hmc-e155-portfolio/" target="_blank"><strong>Christian Wu</strong></a>
 
 
 format:

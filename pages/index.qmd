@@ -1,4 +1,4 @@
 ---
-title: "MechaCrypt: A Solenoid-Based Encrypted Data Transmission System"
+title: "MechaCrypt: Hardware-Accelerated Encrypted Messaging"
 ---
 # Project Overview

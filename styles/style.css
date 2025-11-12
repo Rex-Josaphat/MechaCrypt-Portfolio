@@ -7,7 +7,7 @@
    1. COLOR PALETTE & BASE VARIABLES
    ---------------------------------------------------------- */
 :root {
-  --bg: #151c33;          /* main background base tone */
+  --bg: #0c1125;          /* main background base tone */
   --nav: #0a0f1f;         /* navbar tone (darker for contrast) */
   --card: #202943;        /* card panels and surface contrast */
   --muted: #aab3c2;       /* subdued text color */
@@ -22,8 +22,8 @@
    2. BODY & GLOBAL TYPOGRAPHY
    ---------------------------------------------------------- */
 body {
-  background: radial-gradient(1000px 700px at 25% 15%, #20305c 0%, var(--bg) 80%);
-  color: #f3f6fc;
+  background: radial-gradient(1000px 700px at 25% 15%, #18213d  0%, var(--bg) 80%);
+  color: #ffffff;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell, Noto Sans;
   line-height: 1.75;
 }
@@ -193,7 +193,7 @@ footer {
 }
 
 /* ==========================================================
-   FINAL FOOTER CONTAINER FIX (KILL WHITE WRAPPER)
+   FOOTER CONTAINER
    ========================================================== */
 
 /* Remove background from Quarto's footer wrapper containers */
@@ -264,4 +264,36 @@ footer.footer {
 .navbar .dropdown-menu.show {
   background: #0f1732;
   backdrop-filter: blur(4px);
+}
+
+/* ==========================================================
+   FOOTER STYLING
+   ========================================================== */
+
+/* ---------- Footer Text and Link Styling ---------- */
+footer {
+  color: #f8faff; /* bright white base for normal text */
+  font-weight: 500;
+}
+
+/* Bold white for "MechaCrypt Project" and other strong tags */
+footer strong {
+  color: #f8faff;
+  font-weight: 700;
+}
+
+/* Footer links (names) — blue-glow base, stronger glow on hover */
+footer a {
+  color: #5aa9ff; /* glowy blue tone for linked names */
+  font-weight: 700;
+  text-decoration: none;
+  filter: drop-shadow(0 0 3px rgba(90,169,255,0.6)); /* subtle default glow */
+  transition: filter 0.4s ease, transform 0.3s ease;
+}
+
+/* Hover — expand the glow radius for a soft circular pulse */
+footer a:hover {
+  filter: drop-shadow(0 0 10px rgba(90,169,255,0.8)) 
+          drop-shadow(0 0 20px rgba(90,169,255,0.6));
+  transform: scale(1.02); /* small lift for interactivity */
 }

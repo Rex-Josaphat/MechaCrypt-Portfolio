@@ -1,5 +1,5 @@
 ---
-title: "AES Decryption"
+title: "AES Encryption"
 vars:
   aes-standard-pdf-url: /assets/doc/NIST.FIPS.197-upd1.pdf
 format:
