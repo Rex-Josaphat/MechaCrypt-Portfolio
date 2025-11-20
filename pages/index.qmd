@@ -1,4 +1,4 @@
 ---
-title: "MechaCrypt: Hardware-Accelerated Encrypted Messaging"
+title: "MechaCrypt: Hardware-Encrypted Messaging System"
 ---
 # Project Overview
