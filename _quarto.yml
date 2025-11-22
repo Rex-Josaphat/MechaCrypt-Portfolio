@@ -21,6 +21,8 @@ website:
         href: pages/fpga.qmd
       - text: MCU Design
         href: pages/mcu.qmd
+      - text: Mechanical Design
+        href: pages/actuator.qmd
       - text: Documentation
         href: pages/documentation.qmd
       - text: Results
