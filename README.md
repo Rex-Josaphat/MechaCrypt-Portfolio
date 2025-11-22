@@ -1,4 +1,4 @@
-## MechaCrypt: A Solenoid-Based Encrypted Data Transmission System
+# MechaCrypt: Hardware-Accelerated Encrypted Messaging System
 
 Welcome to **MechaCrypt**. This is an experimental hardware communication platform that transmits encrypted data using physical actuation instead of traditional electrical signaling. This repository contains all files and configurations required to build and deploy the MechaCrypt project website.
 

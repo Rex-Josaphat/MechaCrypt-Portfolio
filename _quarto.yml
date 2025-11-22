@@ -31,10 +31,6 @@ website:
       - icon: github
         href: https://github.com/chrwu17/MechaCrypt.git
         aria-label: "GitHub Repository"
-# page-footer:
-  # center: |
-    # © 2025 **MechaCrypt Project**. All Rights Reserved  
-    # Designed and developed by [**Josaphat Uwizeye Ngoga**](https://jngoga.vercel.app/) & [**Christian Wu**](https://chrwu17.github.io/hmc-e155-portfolio/)
 
   page-footer:
     center: |
