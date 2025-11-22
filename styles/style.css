@@ -36,6 +36,31 @@ a:hover {
   text-decoration: underline;
 }
 
+/* ---------- Improve Paragraph Readability ---------- */
+
+p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #dbe6ff;
+  margin-bottom: 18px;
+}
+
+/* Strong text contrast */
+strong {
+  color: #ffffff;               /* pure white for contrast */
+  font-weight: 700;
+}
+
+/* ---------- Figure Caption Styling ---------- */
+
+.figure-caption, figcaption {
+  color: #9fb4d1 !important;
+  font-size: 0.9rem !important;
+  margin-top: 6px;
+  text-align: center;
+  font-style: italic;
+}
+
 
 /* ----------------------------------------------------------
    3. NAVBAR STYLING & ALIGNMENT
@@ -131,9 +156,46 @@ a:hover {
 /* ----------------------------------------------------------
    4. HEADINGS & TYPOGRAPHY STYLES
    ---------------------------------------------------------- */
-h1, h2, h3, h4 {
+/* h1, h2, h3, h4 {
   font-weight: 600;
   color: #f8faff;
+} */
+
+/* ---------- Enhanced Headings ---------- */
+
+h2, h3, h4 {
+  font-weight: 700;
+  color: #eaf2ff;               /* brighter */
+  letter-spacing: 0.4px;
+  margin-top: 40px;             /* more vertical space */
+}
+
+h2 {
+  font-size: 1.9rem;
+  border-left: 4px solid #5aa9ff;
+  padding-left: 12px;
+  margin-bottom: 12px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #cfe4ff;
+  margin-bottom: 8px;
+}
+h3 {
+  color: #cfe4ff;
+  text-shadow: 0 0 4px rgba(90,169,255,0.35);
+}
+
+h4 {
+  font-size: 1.2rem;
+  color: #b8d6ff;
+  opacity: 0.9;
+}
+
+h2:hover, h3:hover {
+  text-shadow: 0 0 6px rgba(90,169,255,0.6);
+  transition: text-shadow 0.3s ease;
 }
 
 
@@ -296,4 +358,17 @@ footer a:hover {
   filter: drop-shadow(0 0 10px rgba(90,169,255,0.8)) 
           drop-shadow(0 0 20px rgba(90,169,255,0.6));
   transform: scale(1.02); /* small lift for interactivity */
+}
+
+/* Override paragraph styles specifically in footer */
+footer p {
+  color: #aab3c2;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Bold white for "MechaCrypt Project" and other strong tags */
+footer strong {
+  color: #f8faff;
+  font-weight: 700;
 }
