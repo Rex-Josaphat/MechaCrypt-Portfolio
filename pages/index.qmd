@@ -1,4 +1,4 @@
 ---
 title: "MechaCrypt: Hardware-Encrypted Messaging System"
 ---
-# Project Overview
+## Project Overview

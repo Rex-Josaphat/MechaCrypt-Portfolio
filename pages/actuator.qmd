@@ -23,7 +23,7 @@ The relay block is one of the main components of the setup. It is meant to house
 
 The tiny circular holes shown at the top hold debugging LED that are used to vizualize if the respective signal line is activated. That is, if the FPGA sends a logic `HIGH`, the LED in that opening lights up. The other huge opening in the top left holds a toggle flip switch that turns ON or OFF the whole block. The wires are daisy chained to reduce the wiring mess. This is possible because all relays are powered by the same voltage, $12V$, and require the same ground reference. The debugging LED are the hardest to setup. We soldered $100\Omega$ resistors to the anode legs and bent them to fit into the square openings seen in the block. The other leg of the resistor slots in the signal input terminal of the relay while the LED cathode leg is locked inside the the relay ground terminal. The fully assembled relay block is shown in @fig-relayAssem below:
 
-![Full Assembly of The Relay Holding Block](/assets/images/actuator/relayAssem.png){#fig-relayAssem .lightbox}
+![Full Assembly of The Relay Holding Block](/assets/images/actuator/relayAssem.jpg){#fig-relayAssem .lightbox}
 
 ### Soleonid Holder
 
@@ -33,13 +33,13 @@ The solenoid block has a square opening to hold the solenoid module. Behind the 
 
 The extendedstands from the corners are drilled through to house screws that connect and lock the solenoid block to the relay block. The grounds of the individual solenoids are daisy chained as well and conected to the reference ground of the relays while the power ternimals connect to the **Normally Closed (NC)** exit terminals of the relay. The fully assembled solenoid block is shown in @fig-solenoidAssem below:
 
-![Full Assembly of The Solenoid Holding Block](/assets/images/actuator/solenoidAssem.png){#fig-solenoidAssem .lightbox}
+![Full Assembly of The Solenoid Holding Block](/assets/images/actuator/solenoidAssem.jpg){#fig-solenoidAssem .lightbox}
 
 ### Shaft Guide and Shafts
 
 The shaft guides block was the most straightforward piece with rings that have a good enough opening to accomodate $0.25in$ thick, $5in$ long shafts. It also has the seame extensions that help lock it to the solenoid block with screws too. The fully assembly is shown in @fig-shaftGuide below:
 
-![Full Assembly after Shafts and Shaft Guides](/assets/images/actuator/shaftGuide.png){#fig-shaftGuide .lightbox}
+![Full Assembly after Shafts and Shaft Guides](/assets/images/actuator/shaftGuide.jpg){#fig-shaftGuide .lightbox}
 
 ### Limit Switch Holder
 
@@ -47,14 +47,14 @@ The limit switch holder was another crucial part. The kick from the solenoids on
 
 ![Isometric View of The Switch Holding Block](/assets/images/actuator/switchCAD.png){#fig-switchCAD .lightbox}
 
-The limit switches also feature daisy chained ground wires extending out of the back of the block as well as signal lines that go to the MCU. The switches are tightly fit and can be moved back or forward to create the necessary distance ensuring better actuation. The fully assembly is shown in @fig-switchAssem below:
+The limit switches also feature daisy chained ground wires extending out of the back of the block as well as signal lines that go to the MCU. The switches are tightly fit and can be moved back or forward to create the necessary distance ensuring better actuation. The fully assembly is shown in @fig-switchAssemF and @fig-switchAssemB below:
 
-![Full Assembly of The Relay Holding Block](/assets/images/actuator/switchAssem.png){#fig-switchAssem .lightbox}
+![Full Assembly of The Switch Holding Block (Front)](/assets/images/actuator/switchAssemF.jpg){#fig-switchAssemF .lightbox}
 
-After making all the blocks and fitting the necessary components in each section, the blocks are linked by drilling $\frac{1}{8}\text{in}$ holes in the shown areas to fit the connecting screws. Connecting the full setup yields the following full setup:
+![Full Assembly of The Switch Holding Block (Back)](/assets/images/actuator/switchAssemB.jpg){#fig-switchAssemB .lightbox}
 
-![Top View of Full Actuation Assembly](/assets/images/actuator/Assem1.png){#fig-Assem1 .lightbox}
+After making all the blocks and fitting the necessary components in each section, the blocks are linked by drilling $\frac{1}{8}\text{in}$ holes in the shown areas to fit the connecting screws. Connecting all individual components yields the following setup:
 
-![Isometric Front View of Full Actuation Assembly](/assets/images/actuator/Assem2.png){#fig-Assem2 .lightbox}
+![Isometric Front View of Full Actuation Assembly](/assets/images/actuator/Assem1.jpg){#fig-Assem1 .lightbox}
 
-![Isometric Back View of Full Actuation Assembly](/assets/images/actuator/Assem3.png){#fig-Assem3 .lightbox}
+![Isometric Back View of Full Actuation Assembly](/assets/images/actuator/Assem2.jpg){#fig-Assem2 .lightbox}
