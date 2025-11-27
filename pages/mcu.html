@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.21">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-7f7c41a1ce220e856d2579a600b8e98a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -70,6 +70,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles/style.css">
 </head>
@@ -81,8 +110,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">MechaCrypt</span>
     </a>
@@ -155,8 +182,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/chrwu17/MechaCrypt.git"><i class="bi bi-github"></i>Code Repository</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#sender-mcu-design" id="toc-sender-mcu-design" class="nav-link" data-scroll-target="#sender-mcu-design">Sender MCU Design</a></li>
+  <li><a href="#receiver-mcu-design" id="toc-receiver-mcu-design" class="nav-link" data-scroll-target="#receiver-mcu-design">Receiver MCU Design</a></li>
+  </ul>
+<div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/chrwu17/MechaCrypt.git"><i class="bi bi-github"></i>Code Repository</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
@@ -179,8 +214,79 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>This project consists of two MCUs, one for the sender end, and one for the receiver end. For each MCU, we will describe each peripheral that we integrate it, how communication is established with the MCU, and what data is sent.</p>
+</section>
+<section id="sender-mcu-design" class="level2">
+<h2 class="anchored" data-anchor-id="sender-mcu-design">Sender MCU Design</h2>
+<p>For the sender MCU, it will utilize TRNG to generate random keys, it will connect to the sender FPGA where encryption occurs, it will be connected to a ESP8266 where user inputs occur, and it will be connected to the receiver FPGA to send over the randomly generated keys and the total number of 128-bit blocks of the message that is being sent by the user. Below, we will describe in detail how this was implemented.</p>
+<section id="trng-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="trng-implementation">TRNG Implementation</h3>
+<p>The STM32L432KC MCU has a built in True Random Number Generator (TRNG). The TRNG generates 32 random bits, so we need to read it four times to generate 128 random bits, which equates to a random key that is used for AES-128 encryption. The code is designed so that when the sender sends a message over the website UI, the website calculates how many 128 bit blocks are required to send over the message. The MCU code will then generate a random 128 bit key for each of the message blocks and store it on an array in the MCU to be sent to the sender and receiver FPGA.</p>
+</section>
+<section id="connection-with-sender-fpga" class="level3">
+<h3 class="anchored" data-anchor-id="connection-with-sender-fpga">Connection with Sender FPGA</h3>
+<p>The STM32 MCU interacts with the sender FPGA via SPI, which is the same as the way it was set up in lab 7. The data that is sent over to the FPGA is the plaintext and its randomly generated key. Given that our system is built to be able to send multiple 128 bit blocks, we need to know when the FPGA has encrypted a block and is ready to receive the next block and encrypt it. This is achieved by the FPGA sending a done signal to the MCU so that the MCU will send over the next set of plaintext and key. The very first block sending of the program is triggered by the user when hitting the send button on the website, all subsequent block sending is based on the done signal sent by the FPGA.</p>
+<p>In terms of hardware, in order to save pins, we will be using the same output pins for the SPI connections between the MCU and both the sender and receiver FPGA. In other words, it means that <code>SCK</code>, <code>COPI</code>, and <code>CIPO</code> are the same MCU pins wired to both FPGAs. In order for the two FPGAs to not read the wrong data, we have a separate chip enable wire going to each of the FPGAs. That way, each FPGA knows when the data sent over SPI is meant for it.</p>
+</section>
+<section id="esp8266-integration" class="level3">
+<h3 class="anchored" data-anchor-id="esp8266-integration">ESP8266 Integration</h3>
+<p>The sender MCU uses an ESP8266 for its messaging UI for both the sender and receiver. THe MCU and ESP8266 connect via USART, which is the same as we have done with previous labs. On the sender side, the user will input their desired message. They can then click the convert button, which will show them how many blocks of data are gonna be sent, as well as the data that will be sent. The data will be in hex, which is the ASCII equivalent of the text in hex form, which is what we need to input into the FPGA. Since the FPGA uses AES-128 encryption, we need to ensure that each block of text is 128 bits long, even if the message is not that long. To do this, we can use padding, which will fill the remainder of the 128 bit block. We used PKCS #7 padding, which will fill in the remainding bytes needed in the block with the number of bytes that it is filling in. 128 bit blocks are equivalent to 16 bytes, so if we only use 8 bytes worth of text in the block, it will fill the remaining 8 bytes with 0x08. Then, the user can click send, which will start the whole sending transaction for the system. Below is a sample image of what the website UI looks like for the user:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/senderWeb.png" class="img-fluid figure-img"></p>
+<figcaption>Sample Sender Website UI</figcaption>
+</figure>
+</div>
+</section>
+<section id="backdoor-connection-to-receiver-fpga" class="level3">
+<h3 class="anchored" data-anchor-id="backdoor-connection-to-receiver-fpga">Backdoor Connection to Receiver FPGA</h3>
+<p>Since the MCU is generating random keys for each of the blocks of text, the receiver end FPGA needs to know what the keys are to be able to properly decrypt the message. Thus, we need a way for the receiver FPGA to receive this data. We will use SPI to send each of the keys needed, as well as the total number of blocks that the user is sending. The number of blocks is needed, as the MCU will need to know this information to be able to display a progress bar on our LCD and know how much we expect to receive and make progress calculations.</p>
+<p>As mentioned previously, this SPI connection shares the same <code>SCK</code>, <code>COPI</code>, and <code>CIPO</code> as with the SPI connection with the sender FPGA. Thus, this FPGA and MCU connection will also have a chip enable, which will tell the FPGA when the MCU is sending data to it.</p>
+</section>
+</section>
+<section id="receiver-mcu-design" class="level2">
+<h2 class="anchored" data-anchor-id="receiver-mcu-design">Receiver MCU Design</h2>
+<p>For the receiver MCU, it connects with the receiver FPGA for decryption, it connects with the ESP8266 for the receiver end website, it connects with the mechanical actuation system to receive the encrypted ciphertext, and it connects with an LCD display to show live progress of the message transfer.</p>
+<section id="connection-with-receiver-fpga" class="level3">
+<h3 class="anchored" data-anchor-id="connection-with-receiver-fpga">Connection with Receiver FPGA</h3>
+<p>The receiver MCU interacts with the receiver FPGA via SPI, which is the same as the way it was set up in lab 7. The data that is sent over to the FPGA is the encrypted cyphertext that it has received via the mechanical actuation system. The FPGA will then decrypt the data and then send it back to the MCU via SPI, which can then be displayed on the website.</p>
+</section>
+<section id="esp8266-integration-1" class="level3">
+<h3 class="anchored" data-anchor-id="esp8266-integration-1">ESP8266 Integration</h3>
+<p>The receiver end ESP8266 displays the decrypted text to the receiver end user, which should match what the sender sent originally. Given that the mechanical system takes a while to send the data, the receiver end website will display one block at a time until all the blocks have arrived to the receiver side and have been decrypted. The receiver end website UI is built to be similar to the sender UI to demonstrate that encryption and decryption worked correctly, showing each individual 128-bit block of data as well as the full message. Below is a sample image of what the receiver end website UI looks like for the user:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/receiverWeb.png" class="img-fluid figure-img"></p>
+<figcaption>Sample Receiver Website UI</figcaption>
+</figure>
+</div>
+</section>
+<section id="connection-with-mechanical-actuation-system" class="level3">
+<h3 class="anchored" data-anchor-id="connection-with-mechanical-actuation-system">Connection with Mechanical Actuation System</h3>
+<p>Our mechanical actuation system will be sending data to our receiver MCU via 9 GPIO lines. 8 of them transmit data, and the last one is the clk, so that we can synchronize the incoming data and be able to read it correctly. The receiver end MCU is responsible for reading this data and concatenating each block of data, which will then be sent off to the receiver FPGA for decrytpion.</p>
+</section>
+<section id="lcd-display-integration" class="level3">
+<h3 class="anchored" data-anchor-id="lcd-display-integration">LCD Display Integration</h3>
+<p>In order to track how much data has been sent over and how close we are to the full message transaction being complete, we have implemented the use of an LCD Display. We purchased an LCD Display with an I2C adapter, meaning that it will only require 2 MCU pins instead of 8. This saves up a lot of pins, given that the MCU also needs to connect to the ESP8266, the receiver FPGA, and the mechanical actuation system. To drive the LCD display and the I2C adapter, we need a 5V source, which is provided by our motherboard. For the I2C adapter to register a high value, it needs at least <span class="math inline">\(0.7 V_{DD}\)</span>, which is 3.5 V. However, our STM32 pins only output 3.3 V. Thus, we need to use a level shifter, so that the I2C adapter can properly read low and high values. Below is a schematic of our level shifter implementation for our display:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/levelShifter.png" class="img-fluid figure-img"></p>
+<figcaption>Schematic for LCD Display with 3.3 V to 5 V Level Shifter</figcaption>
+</figure>
+</div>
+<p>To run the actual display, we were able to use files provided by the manufacturer, which had functions made to control the display. However, this file was in C++, so we had to convert it to C. Once that was done, we were able to initialize I2C on our MCU and display a progress bar on our display. Below is a video demonstrating what the progress tracking would look like:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><video src="images/lcd.mp4" class="img-fluid" controls=""><a href="images/lcd.mp4">Video</a></video></p>
+<figcaption>LCD Progress Demo</figcaption>
+</figure>
+</div>
 
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -234,13 +340,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

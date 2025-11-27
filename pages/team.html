@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.21">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-7f7c41a1ce220e856d2579a600b8e98a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -81,8 +81,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">MechaCrypt</span>
     </a>
@@ -179,8 +177,35 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="josaphat-ngoga" class="level3">
+<h3 class="anchored" data-anchor-id="josaphat-ngoga">Josaphat Ngoga</h3>
+<div class="grid">
+<div class="g-col-2 g-col-sm-2">
+<p><img src="images/josaphat.jpg" class="img-fluid" style="border-radius:8px; max-width:140px;"></p>
+</div>
+<div class="g-col-10 g-col-sm-10">
+<p><strong>Josaphat Ngoga</strong><br>
+Hi! I’m Josaphat Ngoga, a senior Engineering major at Harvey Mudd College. My interests span both Mechanical and Electrical engineering, with a focus on mechanical design, electronics, and hardware systems. I enjoy working on projects that bring these areas together—especially those involving FPGA development and microcontroller-based applications.</p>
+<p><a href="https://jngoga.vercel.app/">Website</a> <a href="https://www.linkedin.com/in/jngoga/">LinkedIn</a> <a href="https://rex-josaphat.github.io/E155-Portfolio/">E155 Portfolio</a> <a href="https://github.com/Rex-Josaphat">Github</a></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="christian-wu" class="level3">
+<h3 class="anchored" data-anchor-id="christian-wu">Christian Wu</h3>
+<div class="grid">
+<div class="g-col-2 g-col-sm-2">
+<p><img src="images/christian.jpg" class="img-fluid" style="border-radius:8px; max-width:140px;"></p>
+</div>
+<div class="g-col-10 g-col-sm-10">
+<p><strong>Christian Wu</strong><br>
+Christian Wu is a Junior at Harvey Mudd College studying Engineering, with a passion for digital electronics and hardware engineering. Christian grew up in Santiago, Chile, until he moved to the United States to attend Harvey Mudd College. His professional experience includes being a manufacturing engineering intern at Johnson &amp; Johnson and General Motors. Christian is a Machine Shop Proctor at Harvey Mudd and enjoys playing basketball in his time off.</p>
+<p><a href="https://www.linkedin.com/in/christiancwu">LinkedIn</a> <a href="https://chrwu17.github.io/hmc-e155-portfolio/">E155 Portfolio</a> <a href="https://github.com/chrwu17">Github</a></p>
+</div>
+</div>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -234,13 +259,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
