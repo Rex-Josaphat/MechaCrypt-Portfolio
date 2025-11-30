@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.8.21">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>AES Encryption – MechaCrypt</title>
+<title>Hardware-Accelerated AES Encryption – MechaCrypt</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -38,7 +38,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-7f7c41a1ce220e856d2579a600b8e98a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
@@ -113,6 +113,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">MechaCrypt</span>
     </a>
@@ -190,19 +192,18 @@ window.Quarto = {
    
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#aes-overview" id="toc-aes-overview" class="nav-link" data-scroll-target="#aes-overview">AES Overview</a></li>
+  <li><a href="#encryption-overview" id="toc-encryption-overview" class="nav-link" data-scroll-target="#encryption-overview">Encryption Overview</a></li>
   <li><a href="#experiment-setup-and-design-overview" id="toc-experiment-setup-and-design-overview" class="nav-link" data-scroll-target="#experiment-setup-and-design-overview">Experiment Setup and Design Overview</a></li>
   <li><a href="#design-implementation" id="toc-design-implementation" class="nav-link" data-scroll-target="#design-implementation">Design Implementation</a></li>
-  <li><a href="#hardware-testing" id="toc-hardware-testing" class="nav-link" data-scroll-target="#hardware-testing">Hardware Testing</a></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="/assets/docs/NIST.FIPS.197-upd1.pdf"><i class="bi bi-file-earmark-pdf"></i>AES Standard: NIST FIPS 197</a></li></ul></div><div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/chrwu17/MechaCrypt.git"><i class="bi bi-github"></i>Code Repository</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="/assets/docs/NIST.FIPS.197-upd1.pdf"><i class="bi bi-file-earmark-pdf"></i>AES Standard: NIST FIPS 197</a></li></ul></div><div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/chrwu17/MechaCrypt.git"><i class="bi bi-github"></i>Encryption Code Repository</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">AES Encryption</h1>
+<h1 class="title">Hardware-Accelerated AES Encryption</h1>
 </div>
 
 
@@ -221,31 +222,32 @@ window.Quarto = {
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
-<p>In this lab, the MCU and FPGA were used together to implement a hardware-accelerated version of the Advanced Encryption Standard (AES) for 128-bit data encryption. The MCU stored the plaintext, cipher key, and expected ciphertext, and transmitted the plaintext and key to the FPGA via the SPI interface. The FPGA performed the AES encryption according to the NIST-197 standard and then returned the resulting ciphertext to the MCU. Finally, the MCU compared the received ciphertext to the expected value and indicated the success or failure of the encryption process through output signals lighting either a green (success) or red (failure) LED.</p>
+<p>AES is a symmetric encryption algorithm that uses a specific key to both encrypt and decrypt data. It is the global standard for secure data encryption and is defined in three key sizes: AES-128, AES-192, and AES-256, where the number indicates the bit length of the cipher key. A larger key size provides stronger security but requires more hardware resources. The MCU and FPGA combine to implement a hardware-accelerated version of the Advanced Encryption Standard (AES) for 128-bit data encryption. The MCU stores and provides the plaintext and cipher key, transmitted to the FPGA via the SPI interface. The FPGA performes the AES encryption according to the NIST-197 standard and then returns the resulting ciphertext to the MCU for verification. The description below ou</p>
 </section>
-<section id="aes-overview" class="level2">
-<h2 class="anchored" data-anchor-id="aes-overview">AES Overview</h2>
-<p>AES is a symmetric encryption algorithm that uses a specific key to both encrypt and decrypt data. It is the global standard for secure data encryption and is defined in three key sizes: AES-128, AES-192, and AES-256, where the number indicates the bit length of the cipher key. A larger key size provides stronger security but requires more hardware resources. AES encrypts data through a sequence of sub-algorithms and transformations that repeatedly mix the key with the plaintext to produce a ciphertext that appears random and cannot be reversed without the correct key. These transformations operate on matrices of bytes, with the key itself acting as one of the main transformation matrices. The encryption process consists of four main operations:</p>
+<section id="encryption-overview" class="level2">
+<h2 class="anchored" data-anchor-id="encryption-overview">Encryption Overview</h2>
+<p>AES encrypts data through a sequence of sub-algorithms and transformations that repeatedly mix the key with the plaintext to produce a ciphertext that appears random and cannot be reversed without the correct key. These transformations operate on matrices of bytes, with the key itself acting as one of the main transformation matrices. The encryption process consists of four main operations:</p>
 <ul>
-<li><strong>SubBytes():</strong> performs a non-linear byte substitution using a 16×16 S-box lookup table.</li>
-<li><strong>shiftRows():</strong> cyclically shifts the rows of the state matrix by varying offsets depending on row.</li>
+<li><strong>SubBytes():</strong> performs a non-linear byte substitution using a 16×16 S-box lookup table of random magic numbers.</li>
+<li><strong>shiftRows():</strong> cyclically shifts the rows of the state matrix to the left by varying offsets depending on row.</li>
 <li><strong>mixColumns():</strong> transforms each column of the state matrix using Galois Field arithmetic to further diffuse the data.</li>
 <li><strong>AddRoundKey():</strong> combines the current state with a round key using a bitwise XOR operation.</li>
 </ul>
-<p>Finally, these operations are repeated across multiple rounds of encryption, each using a different round key derived through an algorithm known as <strong>keyExpansion()</strong>. In the AES-128 implementation used in this lab, the encryption involves <strong>10 rounds</strong>. Each round follows the sequence: AddRoundKey → SubBytes → ShiftRows → MixColumns, with the final round (10) skipping the MixColumns step.</p>
+<p>Finally, these operations are repeated across multiple rounds of encryption, each using a different round key derived through an algorithm known as <strong>keyExpansion()</strong>. In the AES-128 implementation used in this application, the encryption involves <strong>10 rounds</strong>. Each round follows the sequential: AddRoundKey → SubBytes → ShiftRows → MixColumns, with the final round (10) skipping the MixColumns step. This datapath aggregated over 10 rounds is what constitutes the full AES Encryption.</p>
 </section>
 <section id="experiment-setup-and-design-overview" class="level2">
 <h2 class="anchored" data-anchor-id="experiment-setup-and-design-overview">Experiment Setup and Design Overview</h2>
 <section id="mcu-setup" class="level3">
 <h3 class="anchored" data-anchor-id="mcu-setup">MCU Setup</h3>
-<p>The MCU was already configured through the provided starter code. It was configured to implement the SPI mode 1. It was also set up as the master with an artificial chip select signal to allow 8-bit CE-based SPI decoding on the logic analyzers. The MCU controlled the internal signals that started the SPI transactions as well as checked results from the transactions. The MCU would set the signal <code>load</code> to the FPGA that prepares it to recieve inputs. The MCU then sends the plaintext and then the cipherkey and then would set <code>load</code> LOW to signal that all data is sent. During that period, the FPGA performs encryption and once all 10 rounds complete, the FPA sets the signal <code>done</code> HIGH so that the MCU prepares to receive the ciphertext. Once received, the MCU compared it to the expected cipher through a difference operation. If all operations yield zero, the green LED through <code>PA9</code> would light up, otherwise the red LED at <code>P10</code> lights up indicating that encryption didn’t work properly. This process was always triggered using the MCU reset that restarted the transactions.</p>
+<p>The MCU was configured to implement the SPI mode 1. It was also set up as the master with an artificial chip select signal to allow 8-bit CE-based SPI decoding on the logic analyzers. The MCU controlled the internal signals that started the SPI transactions. The MCU would set the signal <code>load</code> to the FPGA that prepares it to recieve inputs. The MCU then sends the cipherkey and then the plaintext and then would set <code>load</code> <code>LOW</code> to signal that all data is sent. During that period, the FPGA performs encryption and once all 10 rounds complete, the FPA sets the signal <code>done</code> <code>HIGH</code> so that the MCU prepares to receive the ciphertext.</p>
+<p><strong>For debugging:</strong> MCU had code that tested using standard NIST vectors. Once the cyphertext is received, it compared it to the expected cyphertext through a difference operation. If all operations yield zero, a green LED through <code>PA9</code> would light up, otherwise a red LED at <code>P10</code> lights up indicating that encryption didn’t work properly. This process was always triggered using the MCU reset that restarted the transactions.</p>
 </section>
-<section id="fpga-setup" class="level3">
-<h3 class="anchored" data-anchor-id="fpga-setup">FPGA Setup</h3>
-<p>Since all encryption was done by the FPGA, we had to write SystemVerilog modules to perform the transformation operations necessary for executing the AES encryption. A lot of these operations required heavy resource usage as operations such as key expansion are applied across a 128-bit word. This would always run the risk of exhausting LUTs and other FPGA resources. Therefore I had to take into account how my logic synthesized to ensure the implied hardware isn’t too heavy for the FPGA. The <code>subBytes()</code> lookup table was loaded into the FPGA embedded block RAMs which have the ability to store files upto 128kB. To ensure it is mapped properly to the EBRs, we used a clocked version of the AES byte substitution algorithm named <code>sbox_sync()</code>. This module could only parse an 8-bit word so in <code>subBytes()</code>, it was called 16 times to parse the full 128-bit word. The <code>shiftRows()</code> module performed some row permutation by rotating the 4 rows: <code>row 0</code> was kept as is, <code>row 1</code> was shifted left by 1, <code>row 2</code> by 2, and <code>row 3</code> by 3. After row permutation, <code>mixColumns()</code> treats each state as a four-byte vector and performs matrix multiplication (Galois field operations) on the bytes in a column withinin <span class="math inline">\(GF(2^8)\)</span> followed by XOR operations to handle overflows. Next up is the <code>addRoundKey()</code> that performs XOR operations between the 128-bit word and the 128-bit key. Finally, I wrote down the module <code>getNextKey()</code> which performed the key expansion part of AES which receives a 128-bit key value and the tound constant, <code>rcon</code>, which is a series of 4-byte words used in the key schedule to create the sub-keys for each encryption round. The module would determine the key for the next round following the implementation and pseudocode provided in the standards document.</p>
-<p>All the submodules described above were combined in a module named <code>aes_core()</code> whose job was implement the encryption datapath. The datapath followed the structure described in the <a href="#aes-overview">AES Overview</a> section above. The module took in the <code>load</code> signal that is asserted by the MCU after sending the plaintext and key, then initiated the process. The FPGa would continously reset/update internal signals as long as <code>load</code> was HIGH. For round 0, the plaintext is XORed with the key and the result is passed on to the next rounds. In rounds 1 to 9, the key is updated each round alongside the the input to the datapath. This input is represented in the code as <code>state</code> as it hold the intermediate states of the data in-between rounds. After round 10, the <code>done</code> signal is asserted to prepare the MCU to receive the cyphertext.</p>
-<p>Using a synchronized <code>sbox</code> meant that it takes multiple cycles per round to process the data sequentially and safely propagate signals through the combinational logic. Therefore I used <code>cycleCount</code>to basically set when to take inputs, when to latch outputs and when to move to the next rounds. The cycle count was also to help account for the single cycle delay caused by <code>subBytes()</code>. Without it, the datapath would race and try to perform key operations before byte substitution stabilizes.</p>
-<p>To run the setup, we implemented the <code>aes()</code> module that prompts both <code>aes_core()</code> and the <code>aes_spi()</code> module that executes SPI communication betweent both the MCU and the FPGA. Since data is received by the FPGA based on <code>SCK</code> from the FPGA, I added a synchronizer that ensures the <code>load</code> signal referenced by the FPGA for encryption, is latched on the rising edge of the internal clock (<code>HSOSC</code>/<code>clk</code>) instead of the SPI clock domain. This eliminated a synchronization error where encryption would be randomly true/false depending on the data latched. The connection and signals between these modules is shown in <a href="#fig-blockDiagram" class="quarto-xref">Figure&nbsp;1</a>.</p>
+<section id="fpga-setup-and-encryption-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="fpga-setup-and-encryption-pipeline">FPGA Setup and Encryption Pipeline</h3>
+<p>Since all encryption was done by the FPGA, we had to write SystemVerilog modules to perform the transformation operations necessary for executing the AES encryption. A lot of these operations required heavy resource usage as operations such as key expansion are applied across a 128-bit word. This would always run the risk of exhausting LUTs and other FPGA resources. Therefore we had to take into account how the encryption logic is synthesized to ensure the implied hardware isn’t too heavy for the FPGA. The <code>subBytes()</code> lookup table was loaded into the FPGA embedded block RAMs (EBR) which have the ability to store files upto 128kB. To ensure it is mapped properly to the EBRs, we used a clocked version of the AES byte substitution algorithm named <code>sbox_sync()</code>. This module could only parse an 8-bit word so in <code>subBytes()</code>, it was called 16 times to parse the full 128-bit word. The <code>shiftRows()</code> module performed some row permutation by rotating the 4 rows: <code>row 0</code> was kept as is, <code>row 1</code> was shifted left by 1, <code>row 2</code> by 2, and <code>row 3</code> by 3. After row permutation, <code>mixColumns()</code> treats each state as a four-byte vector and performs matrix multiplication (Galois field operations) on the bytes in a column withinin <span class="math inline">\(GF(2^8)\)</span> followed by XOR operations to handle overflows. Next up is the <code>addRoundKey()</code> that performs XOR operations between the 128-bit word and the 128-bit key. Finally, the module <code>getNextKey()</code> which performed the key expansion part of AES which receives a 128-bit key value and the tound constant, <code>rcon</code>, which is a series of 4-byte words used in the key schedule to create the sub-keys for each encryption round. The module would determine the key for the next round following the implementation and pseudocode provided in the standards document.</p>
+<p>Using a synchronized <code>sbox</code> meant that it takes multiple cycles per round to process the data sequentially and safely propagate signals through the combinational logic. Therefore we used <code>cycleCount</code>to basically set when to take inputs, when to latch outputs and when to move to the next rounds. The cycle count was also to help account for the single cycle delay caused by <code>subBytes()</code>. Without it, the datapath would race and try to perform key operations before byte substitution stabilizes.</p>
+<p>All the submodules described above were combined in a module named <code>aes_core()</code> whose job was implement the encryption datapath. The datapath followed the structure described in the <a href="#aes-overview">AES Overview</a> section above. The module took in the <code>load</code> signal that is asserted by the MCU after sending the plaintext and key, then initiated the process. The FPGA would continously reset/update internal signals as long as <code>load</code> was HIGH. For round 0, the plaintext is XORed with the key and the result is passed on to the next rounds. In rounds 1 to 9, the key is updated each round alongside the the input to the datapath. This input is represented in the code as <code>state</code> as it hold the intermediate states of the data in-between rounds. After round 10, the <code>done</code> signal is asserted to prepare the MCU to receive the cyphertext.</p>
+<p>To run the setup, we implemented the <code>aes()</code> module that prompts both <code>aes_core()</code> and the <code>aes_spi()</code> module that executes SPI communication between both the MCU and the FPGA. Since data is received by the FPGA based on <code>SCK</code> from the FPGA, we added a synchronizer that ensures the <code>load</code> signal referenced by the FPGA for encryption, is latched on the rising edge of the FPGA internal clock (<code>HSOSC</code>/<code>clk</code>) instead of the SPI clock domain. This eliminated any potential synchronization issues where encryption would be randomly true/false depending on the data latched. The connection and signals between these modules is shown in <a href="#fig-blockDiagram" class="quarto-xref">Figure&nbsp;1</a>.</p>
 </section>
 </section>
 <section id="design-implementation" class="level2">
@@ -254,7 +256,7 @@ window.Quarto = {
 <div id="fig-blockDiagram" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-blockDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="..\assets/images/lab7BlockDiagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Hierachical Block Diagram"><img src="..\assets/images/lab7BlockDiagram.png" class="img-fluid figure-img"></a>
+<a href="..\assets/images/AES/lab7BlockDiagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Hierachical Block Diagram"><img src="..\assets/images/AES/lab7BlockDiagram.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-blockDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Hierachical Block Diagram
@@ -265,35 +267,21 @@ Figure&nbsp;1: Hierachical Block Diagram
 <div id="fig-coreBlockDiagram" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-coreBlockDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="..\assets/images/coreBlockDiagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: aes_core() Hierachical Block Diagram"><img src="..\assets/images/coreBlockDiagram.png" class="img-fluid figure-img"></a>
+<a href="..\assets/images/AES/coreBlockDiagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: aes_core() Hierachical Block Diagram"><img src="..\assets/images/AES/coreBlockDiagram.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-coreBlockDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: aes_core() Hierachical Block Diagram
 </figcaption>
 </figure>
 </div>
-<p>After running the simulation ensuring modules work as expected, the full setup was installed on the development board. The board has DIP switches that connect specific MCU pins to specific FPGA pins which reduces the need for crossing wires. Other necessary signals like the LEDs were setup on a side breadboard. The complete setup is shown in the following schematic:</p>
+<p>To ensure proper functionality and communication, the full setup is installed on the development board. The board used already had DIP switches that connect specific MCU pins to specific FPGA pins which reduces the need for crossing wires. Other necessary signals like the debugging LEDs are setup on a side breadboard. The complete setup is shown in the following schematic:</p>
 <div id="fig-schematic" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-schematic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="..\assets/images/lab7Schematic.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: AES encryption Wiring Setup"><img src="..\assets/images/lab7Schematic.png" class="img-fluid figure-img"></a>
+<a href="..\assets/images/AES/lab7Schematic.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: AES encryption Wiring Setup"><img src="..\assets/images/AES/lab7Schematic.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-schematic-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: AES encryption Wiring Setup
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="hardware-testing" class="level2">
-<h2 class="anchored" data-anchor-id="hardware-testing">Hardware Testing</h2>
-<p>The testbenches were extremely helpful, especially for this particular lab. I was able to track how my key and other signals move around as I’m performing the key expansion. It allowed me to see how each data signal is loaded as well as when it is updated and it was how I realized the <code>subBytes()</code> issue. They were also essential in testing the modules that I had to write for this lab to ensure that the AES transformation modules function as expected. Each testbench was ran using examples from the NIST:197 Examples as well as other random hex values to check with more tests as possible.</p>
-<div id="fig-Test1" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-Test1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="..\assets/images/trace1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4" title="Figure&nbsp;4: Example SPI Transaction on Logic Analyzer"><img src="..\assets/images/trace1.png" class="img-fluid figure-img" style="width:70.0%"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Test1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Example SPI Transaction on Logic Analyzer
 </figcaption>
 </figure>
 </div>
@@ -353,14 +341,13 @@ Figure&nbsp;4: Example SPI Transaction on Logic Analyzer
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
