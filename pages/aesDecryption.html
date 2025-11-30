@@ -163,11 +163,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul class="collapse">
   <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
-  <li><a href="#dencryption-overview" id="toc-dencryption-overview" class="nav-link" data-scroll-target="#dencryption-overview">Dencryption Overview</a></li>
-  <li><a href="#fpga-setup-and-dencryption-pipeline" id="toc-fpga-setup-and-dencryption-pipeline" class="nav-link" data-scroll-target="#fpga-setup-and-dencryption-pipeline">FPGA Setup and Dencryption Pipeline</a></li>
+  <li><a href="#decryption-overview" id="toc-decryption-overview" class="nav-link" data-scroll-target="#decryption-overview">Decryption Overview</a></li>
+  <li><a href="#fpga-setup-and-decryption-pipeline" id="toc-fpga-setup-and-decryption-pipeline" class="nav-link" data-scroll-target="#fpga-setup-and-decryption-pipeline">FPGA Setup and Decryption Pipeline</a></li>
   <li><a href="#design-implementation" id="toc-design-implementation" class="nav-link" data-scroll-target="#design-implementation">Design Implementation</a></li>
   </ul>
-<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="/assets/docs/NIST.FIPS.197-upd1.pdf?inline=true"><i class="bi bi-file-earmark-pdf"></i>AES Standard: NIST FIPS 197</a></li></ul></div><div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/chrwu17/MechaCrypt.git"><i class="bi bi-github"></i>Decryption Code Repository</a></li></ul></div></nav>
+<div class="quarto-other-links"><h2>Other Links</h2><ul><li><a href="/assets/docs/NIST.FIPS.197-upd1.pdf?inline=true"><i class="bi bi-file-earmark-pdf"></i>AES Standard: NIST FIPS 197</a></li></ul></div><div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/chrwu17/MechaCrypt/blob/main/receiver/fpga/src/aesDecryption.sv"><i class="bi bi-github"></i>Decryption Code Repository</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
@@ -195,12 +195,12 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <p>AES decryption is conceptually the mathematical inverse of AES encryption and therefore applies the opposite operations in reversed order. This is only correct to some extent, depending on the specific algorithm used. The implementation in this project uses the <strong>Equivalent Inverse Cipher</strong> algorithm to recover the plaintext. Similar to encryption, the MCU and FPGA are used where the MCU provides the key and ciphertext while the FPGA performs decryption and sends the plaintext to the MCU via SPI protocol.</p>
 </section>
-<section id="dencryption-overview" class="level2">
-<h2 class="anchored" data-anchor-id="dencryption-overview">Dencryption Overview</h2>
-<p>Just like encryption performs <code>SubBytes()</code>, <code>ShiftRows()</code>, <code>MixColumns()</code>, and <code>AddRoundKey()</code> in that order, decryption uses <code>InvShiftRows()</code>, <code>InvSubBytes()</code>, <code>InvMixColumns()</code>, and <code>AddRoundKey()</code> to retrieve the original plaintext. However, decryption requires <code>AddRoundKey()</code> to occur at the beginning of each round rather than at the end, which breaks symmetry with the encryption pipeline and complicates reuse of hardware. To avoid this, we used <strong>Equivalent Inverse Cipher (EIC)</strong> which rearranges the the inverse transformations so that the round structure follows the same order and pipeline as encryption which is feasible for hardware resuse and less complicated implementation. Now, all decryption rounds except the final one to follow the same 4-cycle micro-pipeline. However, for this to work, decryption requires additional processing of the key schedule: all keys for <strong>round 1 through 9</strong> must be generated early and then premixed using <code>InvMixColumns()</code> before being used in the datapath while keeping round 0 and 10 constant. This means that all the round keys have to be pre-generated before decryption starts. Despite all of this, <strong>EIC</strong> is still relatively faster and efficient than the traditional <strong>Inverse Cipher</strong>.</p>
+<section id="decryption-overview" class="level2">
+<h2 class="anchored" data-anchor-id="decryption-overview">Decryption Overview</h2>
+<p>Just like encryption performs <code>SubBytes()</code>, <code>ShiftRows()</code>, <code>MixColumns()</code>, and <code>AddRoundKey()</code> in that order, decryption uses <code>InvShiftRows()</code>, <code>InvSubBytes()</code>, <code>InvMixColumns()</code>, and <code>AddRoundKey()</code> to retrieve the original plaintext. However, decryption requires <code>AddRoundKey()</code> to occur at the beginning of each round rather than at the end, which breaks symmetry with the encryption pipeline and complicates reuse of hardware. To avoid this, we used <strong>Equivalent Inverse Cipher (EIC)</strong> which rearranges the the inverse transformations so that the round structure follows the same order and pipeline as encryption which is feasible for hardware resuse and less complicated implementation. Now, all decryption rounds except the final one to follow the same 4-cycle micro-pipeline. However, for this to work, decryption requires additional processing of the key schedule: all keys for <strong>round 1</strong> through <strong>9</strong> must be generated early and then premixed using <code>InvMixColumns()</code> before being used in the datapath while keeping <strong>round 0</strong> and <strong>10</strong> constant. This means that all the round keys have to be pre-generated before decryption starts. Despite all of this, <strong>EIC</strong> is still relatively faster and efficient than the traditional <strong>Inverse Cipher</strong>.</p>
 </section>
-<section id="fpga-setup-and-dencryption-pipeline" class="level2">
-<h2 class="anchored" data-anchor-id="fpga-setup-and-dencryption-pipeline">FPGA Setup and Dencryption Pipeline</h2>
+<section id="fpga-setup-and-decryption-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="fpga-setup-and-decryption-pipeline">FPGA Setup and Decryption Pipeline</h2>
 <p>Decryption on the FPGA is divided into two major phases: <strong>Key Expansion</strong> and <strong>Decryption</strong> outlined below.</p>
 <section id="key-schedule-and-premixing" class="level3">
 <h3 class="anchored" data-anchor-id="key-schedule-and-premixing">Key Schedule and Premixing</h3>
@@ -325,7 +325,7 @@ Figure&nbsp;3: AES encryption Wiring Setup
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Rex-Josaphat\.github\.io\/MechaCrypt-Portfolio\/");
+        var filterRegex = new RegExp("https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

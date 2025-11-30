@@ -220,7 +220,7 @@ window.Quarto = {
 
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>The actuation system was integral to the success of the project as it was the link responsibe for moving data from the sender side to the receiver side. It combines the necessary components which are: relay modules, solenoids, actuation shaft, as well as the limit swithces. To make sure these components work as desired, they had to be fixed in place. This was done by 3D printing different components/sections necessary to hold the 9 different channels together making it easier to carry around and neat. Information about the individual components can be found in <a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html"><strong>Documentation</strong></a>.</p>
+<p>The actuation system was integral to the success of the project as it was the link responsibe for moving data from the sender side to the receiver side. It combines the necessary components which are: relay modules, solenoids, actuation shaft, as well as the limit swithces. To make sure these components work as desired, they had to be fixed in place. This was done by 3D printing different components/sections necessary to hold the 9 different channels together making it easier to carry around and neat. Information about the individual components can be found in <a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html" target="_self">Documentation</a>.</p>
 <p><strong>N.B:</strong> All 3D printed parts are configured to be a <strong>tight fit</strong> of the relevant component they will be holding except for the part holding the acutation shafts. The clearance is <strong>+ 0.1in</strong> from whatever dimension you want to constrain. For example the head of the solenoids has <span class="math inline">\(\text{Diameter } = 0.15in\)</span> thus the 3D printed part will have <span class="math inline">\(\text{Diameter } = 0.16in\)</span></p>
 </section>
 <section id="component-design-and-fitting" class="level2">
@@ -422,7 +422,7 @@ Figure&nbsp;10: Isometric Back View of Full Actuation Assembly
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Rex-Josaphat\.github\.io\/MechaCrypt-Portfolio\/");
+        var filterRegex = new RegExp("https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

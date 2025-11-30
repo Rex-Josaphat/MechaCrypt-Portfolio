@@ -42,6 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-7f7c41a1ce220e856d2579a600b8e98a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -159,9 +162,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#project-overview" id="toc-project-overview" class="nav-link active" data-scroll-target="#project-overview">Project Overview</a></li>
+  <li><a href="#abstract" id="toc-abstract" class="nav-link active" data-scroll-target="#abstract">Abstract</a></li>
+  <li><a href="#system-overview" id="toc-system-overview" class="nav-link" data-scroll-target="#system-overview">System Overview</a></li>
+  <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link" data-scroll-target="#table-of-contents">Table of Contents</a></li>
   </ul>
-</nav>
+<div class="quarto-code-links"><h2>Code Links</h2><ul><li><a href="https://github.com/chrwu17/MechaCrypt.git"><i class="bi bi-github"></i>Project Code Repository</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content column-page-left" id="quarto-document-content">
@@ -185,8 +190,54 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="project-overview" class="level2">
-<h2 class="anchored" data-anchor-id="project-overview">Project Overview</h2>
+<section id="abstract" class="level2">
+<h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
+<p>Ever wondered how data actually moves across bus lines and tiny copper traces inside our electronics? <strong>MechaCrypt</strong> was built to make that invisible process physical. It demonstrates how the messages we send through apps are interpreted by a machine, processed, secured, and finally delivered to someone on the other side. Instead of using traditional electrical signaling through wire buses, MechaCrypt transmits information through a <strong>serial mechanical-actuation system</strong>, letting you see the data transfer process as it happens.</p>
+<p>The system accepts a user message on the Sender side, encrypts it, and mechanically transmits the resulting ciphertext to the Receiver side, where it is decrypted only after arrival, mimicing the guarantees of end-to-end encryption. To enhance data security, MechaCrypt uses the MCU’s <strong>True Random Number Generator</strong> (TRNG) to generate a fresh cipher key for every block of data, mirroring real-world secure messaging protocols. All encryption and decryption operations are implemented directly on the FPGAs to ensure fast, hardware-accelerated processing.</p>
+<p>Both MCUs parse and interpret the message using <strong>ASCII</strong>, the fundamental character-encoding standard in computing. The entire user experience is wrapped in custom web applications that allow two users to interact with the Sender and Receiver. Due to hardware constraints, MechaCrypt currently operates in simplex mode (one-way communication), but it fully showcases the flow of secure data transmission. An onboard LCD screen provides real-time feedback, showing the progress of each message as it moves through the system.</p>
+</section>
+<section id="system-overview" class="level2">
+<h2 class="anchored" data-anchor-id="system-overview">System Overview</h2>
+<p>The applications on both sides of MechaCrypt are nearly identical, so most of the hardware is duplicated. Each side’s MCU acts as the primary controller: it manages the message flow, drives the inputs to its local FPGA, and handles all required communication protocols (USART, SPI, and I2C). The MCUs also process web requests through the ESP8266 modules, enabling seamless interaction with the custom web applications. Both MCUs collaborate to control the LCD display. The Sender MCU knows the total length of the outgoing message, while the Receiver MCU tracks how many characters have arrived. By exchanging this information, they coordinate the real-time progress updates shown on the LCD.</p>
+<p>All the relevant elements defined in the description above are connected together following the communication protocols and setup in <a href="#fig-sysDiagram" class="quarto-xref">Figure&nbsp;1</a> below:</p>
+<div id="fig-sysDiagram" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sysDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="..\assets/images/index/blockDiagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: High Level Block Diagram"><img src="..\assets/images/index/blockDiagram.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sysDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: High Level Block Diagram
+</figcaption>
+</figure>
+</div>
+<p>Below is also a flowchart of how messages go from the user to receiver through our project in <a href="#fig-message" class="quarto-xref">Figure&nbsp;2</a>:</p>
+<div id="fig-message" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-message-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="..\assets/images/index/data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: High Level Data Flow Diagram"><img src="..\assets/images/index/data.png" class="img-fluid figure-img"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-message-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: High Level Data Flow Diagram
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="table-of-contents" class="level2">
+<h2 class="anchored" data-anchor-id="table-of-contents">Table of Contents</h2>
+<p>For more information about the setup an implementation, check out the other resources and pages below:</p>
+<ul>
+<li><p><strong>AES Overview:</strong> Provides insight into AES as well as information on how to setup hardware-accelerated encryption and decryption on the UPduin 3.1 FPGA</p>
+<ul>
+<li><a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html" target="_self">AES Encryption:</a> Procedural demonstration on how to setup and configure, setup, and validate the AES-128 bit encryption pipeline.</li>
+<li><a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html" target="_self">AES Encryption:</a> Procedural demonstration on how to setup and configure, setup, and validate the AES-128 bit decryption pipeline.</li>
+</ul></li>
+<li><p><a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/fpga.html" target="_self">FPGA Design:</a> SPRAM configuration and usage, mechanical bit-level signaling, cross-side communication, and full AES encryption/decryption implementation.</p></li>
+<li><p><a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/mcu.html" target="_self">MCU Design:</a> USART, SPI, and I2C protocols, LCD control, TRNG, reading bits from the actuation, and ESP8266 Web requests and web server setup</p></li>
+<li><p><a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/actuator.html" target="_self">Mechanical Design:</a> A detailed walkthrough of the design and assembly of the mechanical actuation system.</p></li>
+<li><p><a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html" target="_self">Documentation:</a> General circuit schematics, BOM, references, and acknowledgements.</p></li>
+<li><p><a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/results.html" target="_self">Results:</a> A presentation of the project’s outcomes, including test results, performance benchmarks, and an example communication.</p></li>
+<li><p><a href="https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/team.html" target="_self">Team:</a> Self introductions about the team behind the project.</p></li>
+</ul>
 
 
 </section>
@@ -264,7 +315,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/Rex-Josaphat\.github\.io\/MechaCrypt-Portfolio\/");
+        var filterRegex = new RegExp("https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -611,6 +662,38 @@ Designed and developed by <a href="https://jngoga.vercel.app/" target="_blank"><
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

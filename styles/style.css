@@ -372,3 +372,58 @@ footer strong {
   color: #f8faff;
   font-weight: 700;
 }
+
+/* ==========================================================
+   PROFILE LINKS SECTION (ICONS + LABELS)
+   ========================================================== */
+/* Container */
+.profile-links {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-top: 0.75rem;
+}
+
+/* The clickable block */
+.profile-icon-block {
+  text-align: center;
+  text-decoration: none; /* base */
+  color: inherit;
+  display: inline-block;
+}
+
+/* The text label under the icon */
+.profile-icon-block div {
+  color: var(--accent);        /* blue link color */
+  text-decoration: underline;  /* always underlined */
+  font-weight: 500;
+  transition: color 0.25s ease;
+  margin-top: 0.0rem; /* add some space here */
+}
+
+/* The icon styling */
+.profile-icon {
+  font-size: 1.5rem;
+  color: var(--accent);
+  display: block;
+  margin: 0 auto 0.0rem;
+  opacity: 0.9;
+  transition:
+    transform 0.25s ease,
+    filter 0.35s ease,
+    opacity 0.25s ease;
+}
+
+/* ---------- Hover Glow ONLY on icon ---------- */
+.profile-icon-block:hover .profile-icon {
+  opacity: 1;
+  transform: scale(1.18);
+  filter: drop-shadow(0 0 10px rgba(90,169,255,0.8))
+          drop-shadow(0 0 20px rgba(90,169,255,0.6));
+}
+
+/* Keep link text looking like a normal link */
+.profile-icon-block:hover div {
+  color: var(--accent);            /* stays blue */
+  text-decoration: underline;      /* stays underlined */
+}
