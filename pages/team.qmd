@@ -18,8 +18,7 @@ format:
 :::
 
 ::: {.g-col-10 .g-col-sm-10}
-**Josaphat Ngoga**  
-Josaphat Ngoga is a senior Engineering major at Harvey Mudd College. His interests span both Mechanical and Electrical engineering, with a focus on mechanical design, electronics, and hardware systems. He enjoys working on projects that bring these areas together, especially those involving mechanical systems, FPGA development, embedded systems and circuit design.
+Josaphat Ngoga is a senior Engineering major at Harvey Mudd College. His interests span both Mechanical and Electrical engineering, with a focus and experience in mechanical design, electronics, control systems and hardware systems. He enjoys working on projects that bring these areas together, especially those involving mechanical systems, FPGA development, embedded systems and circuit design. During his internships at UL Solutions, he also gained experience in DSP and RF/Wireless systems.
 ```{=html}
 <div class="profile-links">
 
@@ -55,7 +54,6 @@ Josaphat Ngoga is a senior Engineering major at Harvey Mudd College. His interes
 :::
 
 ::: {.g-col-10 .g-col-sm-10}
-**Christian Wu**  
 Christian Wu is a Junior at Harvey Mudd College studying Engineering, with a passion for digital electronics and hardware engineering. Christian grew up in Santiago, Chile, until he moved to the United States to attend Harvey Mudd College. His professional experience includes being a manufacturing engineering intern at Johnson & Johnson and General Motors. Christian is a Machine Shop Proctor at Harvey Mudd and enjoys playing basketball in his time off.
 ```{=html}
 <div class="profile-links">

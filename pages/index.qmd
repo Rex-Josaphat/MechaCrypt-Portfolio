@@ -32,9 +32,9 @@ Below is also a flowchart of how messages go from the user to receiver through o
 
 For more information about the setup an implementation, check out the other resources and pages below:
 
-- **AES Overview:** Provides insight into AES as well as information on how to setup hardware-accelerated encryption and decryption on the UPduin 3.1 FPGA
-    - [AES Encryption:](https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html){target="_self"} Procedural demonstration on how to setup and configure, setup, and validate the AES-128 bit encryption pipeline. 
-    - [AES Encryption:](https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html){target="_self"} Procedural demonstration on how to setup and configure, setup, and validate the AES-128 bit decryption pipeline.
+- **AES Overview:** Provides insight into AES as well as information on how to setup hardware-accelerated encryption and decryption on the UPduino 3.1 FPGA
+    - [AES Encryption:](https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/aesEncryption.html){target="_self"} Procedural demonstration on how to setup and configure, setup, and validate the AES-128 bit encryption pipeline. 
+    - [AES Decryption:](https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/aesDecryption.html){target="_self"} Procedural demonstration on how to setup and configure, setup, and validate the AES-128 bit decryption pipeline.
 
 - [FPGA Design:](https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/fpga.html){target="_self"} SPRAM configuration and usage, mechanical bit-level signaling, cross-side communication, and full AES encryption/decryption implementation.
  
