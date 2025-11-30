@@ -43,6 +43,7 @@ website:
 format:
   html:
     theme: default
+    html-math-method: mathjax
     css: styles/style.css
     toc: true
     toc-depth: 2

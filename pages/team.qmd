@@ -1,5 +1,14 @@
 ---
-title: "Meet The Team"
+title: "Meet The Developers"
+page-layout: full
+theme: default
+lang: en
+date-format: long
+document-css: false
+link-citations: true
+format:
+  html:
+    css: styles.css
 ---
 
 ### Josaphat Ngoga
@@ -10,16 +19,34 @@ title: "Meet The Team"
 
 ::: {.g-col-10 .g-col-sm-10}
 **Josaphat Ngoga**  
-Hi! I’m Josaphat Ngoga, a senior Engineering major at Harvey Mudd College. My interests span both Mechanical and Electrical engineering, with a focus on mechanical design, electronics, and hardware systems. I enjoy working on projects that bring these areas together—especially those involving FPGA development and microcontroller-based applications.
+Josaphat Ngoga is a senior Engineering major at Harvey Mudd College. His interests span both Mechanical and Electrical engineering, with a focus on mechanical design, electronics, and hardware systems. He enjoys working on projects that bring these areas together, especially those involving mechanical systems, FPGA development, embedded systems and circuit design.
+```{=html}
+<div class="profile-links">
 
-[Website](https://jngoga.vercel.app/) 
-[LinkedIn](https://www.linkedin.com/in/jngoga/) 
-[E155 Portfolio](https://rex-josaphat.github.io/E155-Portfolio/) 
-[Github](https://github.com/Rex-Josaphat)
+  <a class="profile-icon-block" href="https://jngoga.vercel.app/">
+    <i class="bi bi-globe2 profile-icon"></i>
+    <div>Website</div>
+  </a>
+
+  <a class="profile-icon-block" href="https://www.linkedin.com/in/jngoga/">
+    <i class="bi bi-linkedin profile-icon"></i>
+    <div>LinkedIn</div>
+  </a>
+
+  <a class="profile-icon-block" href="https://rex-josaphat.github.io/E155-Portfolio/">
+    <i class="bi bi-cpu-fill profile-icon"></i>
+    <div>E155 Portfolio</div>
+  </a>
+
+  <a class="profile-icon-block" href="https://github.com/Rex-Josaphat">
+    <i class="bi bi-github profile-icon"></i>
+    <div>GitHub</div>
+  </a>
+
+</div>
+```
 :::
 :::
-
----
 
 ### Christian Wu
 ::: {.grid}
@@ -30,9 +57,25 @@ Hi! I’m Josaphat Ngoga, a senior Engineering major at Harvey Mudd College. My 
 ::: {.g-col-10 .g-col-sm-10}
 **Christian Wu**  
 Christian Wu is a Junior at Harvey Mudd College studying Engineering, with a passion for digital electronics and hardware engineering. Christian grew up in Santiago, Chile, until he moved to the United States to attend Harvey Mudd College. His professional experience includes being a manufacturing engineering intern at Johnson & Johnson and General Motors. Christian is a Machine Shop Proctor at Harvey Mudd and enjoys playing basketball in his time off.
+```{=html}
+<div class="profile-links">
 
-[LinkedIn](https://www.linkedin.com/in/christiancwu) 
-[E155 Portfolio](https://chrwu17.github.io/hmc-e155-portfolio/) 
-[Github](https://github.com/chrwu17)
+  <a class="profile-icon-block" href="https://www.linkedin.com/in/christiancwu">
+    <i class="bi bi-linkedin profile-icon"></i>
+    <div>LinkedIn</div>
+  </a>
+
+  <a class="profile-icon-block" href="https://chrwu17.github.io/hmc-e155-portfolio/">
+    <i class="bi bi-cpu-fill profile-icon"></i>
+    <div>E155 Portfolio</div>
+  </a>
+
+  <a class="profile-icon-block" href="https://github.com/chrwu17">
+    <i class="bi bi-github profile-icon"></i>
+    <div>GitHub</div>
+  </a>
+
+</div>
+```
 :::
 :::
