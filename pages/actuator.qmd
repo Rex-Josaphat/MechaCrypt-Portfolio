@@ -9,7 +9,7 @@ format:
 ---
 ## Overview
 
-The actuation system was integral to the success of the project as it was the link responsibe for moving data from the sender side to the receiver side. It combines the necessary components which are: relay modules, solenoids, actuation shaft, as well as the limit swithces. To make sure these components work as desired, they had to be fixed in place. This was done by 3D printing different components/sections necessary to hold the 9 different channels together making it easier to carry around and neat. Information about the individual components can be found in [**Documentation**](https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html).
+The actuation system was integral to the success of the project as it was the link responsibe for moving data from the sender side to the receiver side. It combines the necessary components which are: relay modules, solenoids, actuation shaft, as well as the limit swithces. To make sure these components work as desired, they had to be fixed in place. This was done by 3D printing different components/sections necessary to hold the 9 different channels together making it easier to carry around and neat. Information about the individual components can be found in [Documentation](https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html){target="_self"}.
 
 **N.B:** All 3D printed parts are configured to be a **tight fit** of the relevant component they will be holding except for the part holding the acutation shafts. The clearance is **+ 0.1in** from whatever dimension you want to constrain. For example the head of the solenoids has $\text{Diameter } = 0.15in$ thus the 3D printed part will have $\text{Diameter } = 0.16in$
 

@@ -6,7 +6,7 @@ format:
   html: 
     code-links:
       - text: "Encryption Code Repository"
-        href: https://github.com/chrwu17/MechaCrypt.git
+        href: https://github.com/chrwu17/MechaCrypt/blob/main/sender/fpga/src/aesEncryption.sv
         icon: github
     other-links: 
       - text: "AES Standard: NIST FIPS 197"

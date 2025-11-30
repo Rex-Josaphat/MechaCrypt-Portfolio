@@ -49,6 +49,7 @@ format:
     toc-depth: 2
     page-layout: full
     link-external-newwindow: true
+    link-external-filter: "https://rex-josaphat.github.io/MechaCrypt-Portfolio/pages/"
 
 filters: 
   - lightbox
