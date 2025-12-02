@@ -427,3 +427,62 @@ footer strong {
   color: var(--accent);            /* stays blue */
   text-decoration: underline;      /* stays underlined */
 }
+
+/* Keep link text looking like a normal link */
+.profile-icon-block:hover div {
+  color: var(--accent);            /* stays blue */
+  text-decoration: underline;      /* stays underlined */
+}
+
+/* ==========================================================
+   TABLE STYLING
+   ========================================================== */
+
+/* Override Quarto's default white table background */
+table {
+  background: transparent !important;
+  color: #dbe6ff !important;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 24px 0;
+}
+
+/* Table headers */
+table thead th {
+  background: rgba(90, 169, 255, 0.15) !important;
+  color: #f8faff !important;
+  font-weight: 700;
+  padding: 12px 16px;
+  border-bottom: 2px solid var(--accent);
+  text-align: left;
+}
+
+/* Table cells */
+table tbody td {
+  background: rgba(255, 255, 255, 0.03) !important;
+  color: #dbe6ff !important;
+  padding: 10px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Alternate row coloring */
+table tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Hover effect on rows */
+table tbody tr:hover td {
+  background: rgba(90, 169, 255, 0.1) !important;
+  transition: background 0.2s ease;
+}
+
+/* Table links */
+table a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+table a:hover {
+  color: #9cd1ff;
+  filter: drop-shadow(0 0 4px rgba(90,169,255,0.5));
+}

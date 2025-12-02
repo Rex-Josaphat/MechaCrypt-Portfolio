@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/team.html</loc>
-    <lastmod>2025-11-30T23:03:35.864Z</lastmod>
-  </url>
-  <url>
     <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/mcu.html</loc>
-    <lastmod>2025-11-27T23:25:36.394Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/fpga.html</loc>
-    <lastmod>2025-11-22T02:38:20.077Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/aesEncryption.html</loc>
-    <lastmod>2025-11-30T22:56:18.737Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/actuator.html</loc>
-    <lastmod>2025-11-30T22:28:34.178Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/aesDecryption.html</loc>
-    <lastmod>2025-11-30T22:34:08.193Z</lastmod>
-  </url>
-  <url>
-    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html</loc>
-    <lastmod>2025-11-05T08:59:03.168Z</lastmod>
+    <lastmod>2025-12-01T23:15:22.792Z</lastmod>
   </url>
   <url>
     <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/index.html</loc>
-    <lastmod>2025-11-30T22:50:07.859Z</lastmod>
+    <lastmod>2025-12-02T18:49:01.586Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/documentation.html</loc>
+    <lastmod>2025-12-02T18:18:38.541Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/team.html</loc>
+    <lastmod>2025-12-01T23:15:22.793Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/aesEncryption.html</loc>
+    <lastmod>2025-12-01T23:15:22.643Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/fpga.html</loc>
+    <lastmod>2025-12-01T23:15:22.644Z</lastmod>
   </url>
   <url>
     <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/results.html</loc>
-    <lastmod>2025-11-30T22:35:33.551Z</lastmod>
+    <lastmod>2025-12-01T23:15:22.792Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/actuator.html</loc>
+    <lastmod>2025-12-01T23:15:22.641Z</lastmod>
+  </url>
+  <url>
+    <loc>https://Rex-Josaphat.github.io/MechaCrypt-Portfolio/pages/aesDecryption.html</loc>
+    <lastmod>2025-12-01T23:15:22.642Z</lastmod>
   </url>
 </urlset>
