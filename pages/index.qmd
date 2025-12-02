@@ -16,6 +16,12 @@ The system accepts a user message on the Sender side, encrypts it, and mechanica
 
 Both MCUs parse and interpret the message using **ASCII**, the fundamental character-encoding standard in computing. The entire user experience is wrapped in custom web applications that allow two users to interact with the Sender and Receiver. Due to hardware constraints, MechaCrypt currently operates in simplex mode (one-way communication), but it fully showcases the flow of secure data transmission. An onboard LCD screen provides real-time feedback, showing the progress of each message as it moves through the system.
 
+## New Hardware
+
+The new hardware that we will be implementing onto this project is the use of an LCD display. A traditional LED display requires 8 GPIO pins, which would use up a lot of the pins on our MCU, so we are using an I2C adapter for our 8 GPIO pins. In order to power our display, we will need to learn how to use and implement I2C on our STM32 Microcontroller to be able to display an text that we want onto the display.
+
+![20x04 LCD Display with I2C Adapter](/assets/images/index/lcd.png)
+
 ## System Overview
 
 The applications on both sides of MechaCrypt are nearly identical, so most of the hardware is duplicated. Each side’s MCU acts as the primary controller: it manages the message flow, drives the inputs to its local FPGA, and handles all required communication protocols (USART, SPI, and I2C). The MCUs also process web requests through the ESP8266 modules, enabling seamless interaction with the custom web applications. Both MCUs collaborate to control the LCD display. The Sender MCU knows the total length of the outgoing message, while the Receiver MCU tracks how many characters have arrived. By exchanging this information, they coordinate the real-time progress updates shown on the LCD.

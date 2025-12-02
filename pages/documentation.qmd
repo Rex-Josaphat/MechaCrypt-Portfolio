@@ -1,3 +1,24 @@
 ---
 title: "Documentation"
 ---
+
+## Bill of Materials
+
+| Part Name                           | Part Number         | Quantity  | Vendor         | Price     | Link                                                                                            |
+|-------------------------------------|---------------------|-----------|----------------|-----------|-------------------------------------------------------------------------------------------------|
+| 12V Relay Module                    | SRD-12VDC-SL-C      | 10        | AEDIKO         | 13.20     | [Link](https://www.amazon.com/dp/B0972R8QZS/ref=twister_B0B8HF14T2?_encoding=UTF8&th=1)         |
+| 12V Solenoid                        | Z24G50031OJX        | 9         | TEHAUX         | 28.26     | [Link](https://www.amazon.com/dp/B0BRYJS7HD?psc=1&ref_=cm_sw_r_cp_ud_ct_1PBFRK1N28CPX9EH90QX_1) |
+| Roller Lever Arm Micro Limit Switch | KW12-3              | 10        | HiLetgo        | 6.60      | [Link](https://www.amazon.com/dp/B07X142VGC?psc=1&ref_=cm_sw_r_cp_ud_ct_1PBFRK1N28CPX9EH90QX_2) |
+| LCD Display with I2C Adapter        | LCD2004             | 10        | SunFounder     | 14.26      | [Link](https://www.amazon.com/dp/B01GPUMP9C?ref=cm_sw_r_cso_cp_apan_dp_T1BWWY2K3NTRHKGR1M92&ref_=cm_sw_r_cso_cp_apan_dp_T1BWWY2K3NTRHKGR1M92&social_share=cm_sw_r_cso_cp_apan_dp_T1BWWY2K3NTRHKGR1M92&titleSource=true&th=1) |
+| FPGA                                | Upduino v3.1        | 2         | Upduino        | Stockroom | N/A                                                                                             |
+| MCU                                 | STM32L432KC         | 2         | STM            | Stockroom | N/A                                                                                             |
+| 3D Printed Rods                     | N/A                 | 9         | N/A            | Makerspace | N/A                                                                                             |
+| ESP8266                             | ESP-WROOM-02        | 2         | Edwin Robotics | Stockroom | N/A                                                                                             |
+| 3D Printer & PLA                    |        N/A          | N/A       | N/A            | Makerspace | N/A
+| **Total**                           |                     |           |                | **$62.32**|                                                                                                 |
+
+: BOM for Final Project
+
+## Acknowledgements
+
+We would like to thank Prof Spencer for his detailed feedback and support throughout the project, guiding us in the right direction to solve problems. We would also like to thank Xavier for helping us with the ideation process for the project and ironing out any issues and confusions that we had. We would also like to thank Jacob for his kindness and support, and willingness to help us find all the parts we needed for this project. 
