@@ -20,7 +20,7 @@ Both MCUs parse and interpret the message using **ASCII**, the fundamental chara
 
 The new hardware that we will be implementing onto this project is the use of an LCD display. A traditional LED display requires 8 GPIO pins, which would use up a lot of the pins on our MCU, so we are using an I2C adapter for our 8 GPIO pins. In order to power our display, we will need to learn how to use and implement I2C on our STM32 Microcontroller to be able to display an text that we want onto the display.
 
-![20x04 LCD Display with I2C Adapter](/assets/images/index/lcd.png)
+![20x04 LCD Display with I2C Adapter](/assets/images/index/lcd.png){#fig-lcdDiagram width="50%" .lightbox}
 
 ## System Overview
 
