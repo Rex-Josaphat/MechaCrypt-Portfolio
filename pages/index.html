@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.22">
+<meta name="generator" content="quarto-1.8.21">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cd7454b418030687c631a6a7286fbe16.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1cef86a8441353d14238f0f859bc59ef.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7f7c41a1ce220e856d2579a600b8e98a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -200,35 +200,39 @@ ul.task-list li input[type="checkbox"] {
 <section id="new-hardware" class="level2">
 <h2 class="anchored" data-anchor-id="new-hardware">New Hardware</h2>
 <p>The new hardware that we will be implementing onto this project is the use of an LCD display. A traditional LED display requires 8 GPIO pins, which would use up a lot of the pins on our MCU, so we are using an I2C adapter for our 8 GPIO pins. In order to power our display, we will need to learn how to use and implement I2C on our STM32 Microcontroller to be able to display an text that we want onto the display.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../assets/images/index/lcd.png" class="img-fluid figure-img"></p>
-<figcaption>20x04 LCD Display with I2C Adapter</figcaption>
+<div id="fig-lcdDiagram" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-lcdDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="..\assets/images/index/lcd.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: 20x04 LCD Display with I2C Adapter"><img src="..\assets/images/index/lcd.png" class="img-fluid figure-img" style="width:50.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lcdDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: 20x04 LCD Display with I2C Adapter
+</figcaption>
 </figure>
 </div>
 </section>
 <section id="system-overview" class="level2">
 <h2 class="anchored" data-anchor-id="system-overview">System Overview</h2>
 <p>The applications on both sides of MechaCrypt are nearly identical, so most of the hardware is duplicated. Each side’s MCU acts as the primary controller: it manages the message flow, drives the inputs to its local FPGA, and handles all required communication protocols (USART, SPI, and I2C). The MCUs also process web requests through the ESP8266 modules, enabling seamless interaction with the custom web applications. Both MCUs collaborate to control the LCD display. The Sender MCU knows the total length of the outgoing message, while the Receiver MCU tracks how many characters have arrived. By exchanging this information, they coordinate the real-time progress updates shown on the LCD.</p>
-<p>All the relevant elements defined in the description above are connected together following the communication protocols and setup in <a href="#fig-sysDiagram" class="quarto-xref">Figure&nbsp;1</a> below:</p>
+<p>All the relevant elements defined in the description above are connected together following the communication protocols and setup in <a href="#fig-sysDiagram" class="quarto-xref">Figure&nbsp;2</a> below:</p>
 <div id="fig-sysDiagram" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-sysDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../assets/images/index/blockDiagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: High Level Block Diagram"><img src="../assets/images/index/blockDiagram.png" class="img-fluid figure-img"></a>
+<a href="..\assets/images/index/blockDiagram.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: High Level Block Diagram"><img src="..\assets/images/index/blockDiagram.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sysDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: High Level Block Diagram
+Figure&nbsp;2: High Level Block Diagram
 </figcaption>
 </figure>
 </div>
-<p>Below is also a flowchart of how messages go from the user to receiver through our project in <a href="#fig-message" class="quarto-xref">Figure&nbsp;2</a>:</p>
+<p>Below is also a flowchart of how messages go from the user to receiver through our project in <a href="#fig-message" class="quarto-xref">Figure&nbsp;3</a>:</p>
 <div id="fig-message" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-message-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="../assets/images/index/data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: High Level Data Flow Diagram"><img src="../assets/images/index/data.png" class="img-fluid figure-img"></a>
+<a href="..\assets/images/index/data.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3" title="Figure&nbsp;3: High Level Data Flow Diagram"><img src="..\assets/images/index/data.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-message-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: High Level Data Flow Diagram
+Figure&nbsp;3: High Level Data Flow Diagram
 </figcaption>
 </figure>
 </div>

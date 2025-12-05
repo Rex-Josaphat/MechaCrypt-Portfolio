@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.22">
+<meta name="generator" content="quarto-1.8.21">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -38,10 +38,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-cd7454b418030687c631a6a7286fbe16.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1cef86a8441353d14238f0f859bc59ef.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-7f7c41a1ce220e856d2579a600b8e98a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -222,7 +222,7 @@ window.Quarto = {
 </section>
 <section id="sender-mcu-design" class="level2">
 <h2 class="anchored" data-anchor-id="sender-mcu-design">Sender MCU Design</h2>
-<p>For the sender MCU, it will utilize TRNG to generate random keys, it will connect to the sender FPGA where encryption occurs, it will be connected to a ESP8266 where user inputs occur, and it will be connected to the receiver FPGA to send over the randomly generated keys and the total number of 128-bit blocks of the message that is being sent by the user. Below, we will describe in detail how this was implemented.</p>
+<p>For the sender MCU, it will utilize TRNG to generate random keys, it will connect to the sender FPGA where encryption occurs and it will be connected to a ESP8266 where user inputs occur. Below, we will describe in detail how this was implemented.</p>
 <section id="trng-implementation" class="level3">
 <h3 class="anchored" data-anchor-id="trng-implementation">TRNG Implementation</h3>
 <p>The STM32L432KC MCU has a built in True Random Number Generator (TRNG). The TRNG generates 32 random bits, so we need to read it four times to generate 128 random bits, which equates to a random key that is used for AES-128 encryption. The code is designed so that when the sender sends a message over the website UI, the website calculates how many 128 bit blocks are required to send over the message. The MCU code will then generate a random 128 bit key for each of the message blocks and store it on an array in the MCU to be sent to the sender and receiver FPGA.</p>
@@ -242,18 +242,13 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="backdoor-connection-to-receiver-fpga" class="level3">
-<h3 class="anchored" data-anchor-id="backdoor-connection-to-receiver-fpga">Backdoor Connection to Receiver FPGA</h3>
-<p>Since the MCU is generating random keys for each of the blocks of text, the receiver end FPGA needs to know what the keys are to be able to properly decrypt the message. Thus, we need a way for the receiver FPGA to receive this data. We will use SPI to send each of the keys needed, as well as the total number of blocks that the user is sending. The number of blocks is needed, as the MCU will need to know this information to be able to display a progress bar on our LCD and know how much we expect to receive and make progress calculations.</p>
-<p>As mentioned previously, this SPI connection shares the same <code>SCK</code>, <code>COPI</code>, and <code>CIPO</code> as with the SPI connection with the sender FPGA. Thus, this FPGA and MCU connection will also have a chip enable, which will tell the FPGA when the MCU is sending data to it.</p>
-</section>
 </section>
 <section id="receiver-mcu-design" class="level2">
 <h2 class="anchored" data-anchor-id="receiver-mcu-design">Receiver MCU Design</h2>
 <p>For the receiver MCU, it connects with the receiver FPGA for decryption, it connects with the ESP8266 for the receiver end website, it connects with the mechanical actuation system to receive the encrypted ciphertext, and it connects with an LCD display to show live progress of the message transfer.</p>
 <section id="connection-with-receiver-fpga" class="level3">
 <h3 class="anchored" data-anchor-id="connection-with-receiver-fpga">Connection with Receiver FPGA</h3>
-<p>The receiver MCU interacts with the receiver FPGA via SPI, which is the same as the way it was set up in lab 7. The data that is sent over to the FPGA is the encrypted cyphertext that it has received via the mechanical actuation system. The FPGA will then decrypt the data and then send it back to the MCU via SPI, which can then be displayed on the website.</p>
+<p>The receiver MCU interacts with the receiver FPGA via SPI, which is the same as the way it was set up in lab 7. The FPGA will send the decypted plaintext to the MCU via SPI.</p>
 </section>
 <section id="esp8266-integration-1" class="level3">
 <h3 class="anchored" data-anchor-id="esp8266-integration-1">ESP8266 Integration</h3>
@@ -264,10 +259,6 @@ window.Quarto = {
 <figcaption>Sample Receiver Website UI</figcaption>
 </figure>
 </div>
-</section>
-<section id="connection-with-mechanical-actuation-system" class="level3">
-<h3 class="anchored" data-anchor-id="connection-with-mechanical-actuation-system">Connection with Mechanical Actuation System</h3>
-<p>Our mechanical actuation system will be sending data to our receiver MCU via 9 GPIO lines. 8 of them transmit data, and the last one is the clk, so that we can synchronize the incoming data and be able to read it correctly. The receiver end MCU is responsible for reading this data and concatenating each block of data, which will then be sent off to the receiver FPGA for decrytpion.</p>
 </section>
 <section id="lcd-display-integration" class="level3">
 <h3 class="anchored" data-anchor-id="lcd-display-integration">LCD Display Integration</h3>
