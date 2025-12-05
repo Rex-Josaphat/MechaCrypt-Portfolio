@@ -221,14 +221,14 @@
     "href": "pages/results.html",
     "title": "Results",
     "section": "",
-    "text": "The goal of this project was to allow the user to send any message, have it encrypted and sent over a mechanical system, get decrypted, and then displayed on a receiver end website."
+    "text": "The goal of this project was to allow the user to send any message, have it encrypted and sent over a mechanical system, get decrypted, and then displayed on a receiver end website. The entire pipeline works as expected: A user can input a message, it gets encrypted with a random key and sent over the mechanical system; the FPGA reads and decrypts data, sends it to the MCU for decryption. The main issue was that we couldn’t properly debounce the receiver switches which meant that the received data is corrupted. When it’s decrypted, the output on the receiver website is different from the sent message. Nonetheless, we were glad to have been able to demonstrate the working of the full pipeline despite the shortcomings from reading the limit switches."
   },
   {
-    "objectID": "pages/results.html#overview",
-    "href": "pages/results.html#overview",
+    "objectID": "pages/results.html#overview-and-conclusion",
+    "href": "pages/results.html#overview-and-conclusion",
     "title": "Results",
     "section": "",
-    "text": "The goal of this project was to allow the user to send any message, have it encrypted and sent over a mechanical system, get decrypted, and then displayed on a receiver end website."
+    "text": "The goal of this project was to allow the user to send any message, have it encrypted and sent over a mechanical system, get decrypted, and then displayed on a receiver end website. The entire pipeline works as expected: A user can input a message, it gets encrypted with a random key and sent over the mechanical system; the FPGA reads and decrypts data, sends it to the MCU for decryption. The main issue was that we couldn’t properly debounce the receiver switches which meant that the received data is corrupted. When it’s decrypted, the output on the receiver website is different from the sent message. Nonetheless, we were glad to have been able to demonstrate the working of the full pipeline despite the shortcomings from reading the limit switches."
   },
   {
     "objectID": "pages/results.html#software-results",
