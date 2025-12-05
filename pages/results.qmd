@@ -7,3 +7,20 @@ format:
         href: https://github.com/chrwu17/MechaCrypt.git
         icon: github
 ---
+
+## Overview
+
+The goal of this project was to allow the user to send any message, have it encrypted and sent over a mechanical system, get decrypted, and then displayed on a receiver end website. 
+
+## Software Results
+
+## Hardware Results
+
+We were able to successfully actuate our mechanical system from our FPGA, with a user determined input message. During our process of getting the mechanical system to work, we realized that each solenoid was drawing close to 0.85 A of current, which overloads our lab bench power supply. Thus, we were able to find a bigger 12 Amp power supply to support our 6 A of current needed by all the solenoids being on at once. 
+
+We were able to use our FPGA to set the sending speed of our mechanical system. Per our specs, we chose to send it at 3 Hz, or the equivalent of 3 bytes per second without any issues. 
+
+Below is a demo video of us inputting a message on the website, and the ciphertext and key sent over the mechanical system. 
+
+{{< video https://youtu.be/fwyEuvyJAbw >}}
+

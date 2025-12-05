@@ -14,7 +14,7 @@ This project consists of two MCUs, one for the sender end, and one for the recei
 
 ## Sender MCU Design
 
-For the sender MCU, it will utilize TRNG to generate random keys, it will connect to the sender FPGA where encryption occurs, it will be connected to a ESP8266 where user inputs occur, and it will be connected to the receiver FPGA to send over the randomly generated keys and the total number of 128-bit blocks of the message that is being sent by the user. Below, we will describe in detail how this was implemented. 
+For the sender MCU, it will utilize TRNG to generate random keys, it will connect to the sender FPGA where encryption occurs and it will be connected to a ESP8266 where user inputs occur. Below, we will describe in detail how this was implemented. 
 
 ### TRNG Implementation
 
@@ -32,29 +32,19 @@ The sender MCU uses an ESP8266 for its messaging UI for both the sender and rece
 
 ![Sample Sender Website UI](images/senderWeb.png)
 
-### Backdoor Connection to Receiver FPGA
-
-Since the MCU is generating random keys for each of the blocks of text, the receiver end FPGA needs to know what the keys are to be able to properly decrypt the message. Thus, we need a way for the receiver FPGA to receive this data. We will use SPI to send each of the keys needed, as well as the total number of blocks that the user is sending. The number of blocks is needed, as the MCU will need to know this information to be able to display a progress bar on our LCD and know how much we expect to receive and make progress calculations. 
-
-As mentioned previously, this SPI connection shares the same `SCK`, `COPI`, and `CIPO` as with the SPI connection with the sender FPGA. Thus, this FPGA and MCU connection will also have a chip enable, which will tell the FPGA when the MCU is sending data to it. 
-
 ## Receiver MCU Design
 
 For the receiver MCU, it connects with the receiver FPGA for decryption, it connects with the ESP8266 for the receiver end website, it connects with the mechanical actuation system to receive the encrypted ciphertext, and it connects with an LCD display to show live progress of the message transfer. 
 
 ### Connection with Receiver FPGA
 
-The receiver MCU interacts with the receiver FPGA via SPI, which is the same as the way it was set up in lab 7. The data that is sent over to the FPGA is the encrypted cyphertext that it has received via the mechanical actuation system. The FPGA will then decrypt the data and then send it back to the MCU via SPI, which can then be displayed on the website. 
+The receiver MCU interacts with the receiver FPGA via SPI, which is the same as the way it was set up in lab 7. The FPGA will send the decypted plaintext to the MCU via SPI. 
 
 ### ESP8266 Integration
 
 The receiver end ESP8266 displays the decrypted text to the receiver end user, which should match what the sender sent originally. Given that the mechanical system takes a while to send the data, the receiver end website will display one block at a time until all the blocks have arrived to the receiver side and have been decrypted. The receiver end website UI is built to be similar to the sender UI to demonstrate that encryption and decryption worked correctly, showing each individual 128-bit block of data as well as the full message. Below is a sample image of what the receiver end website UI looks like for the user:
 
 ![Sample Receiver Website UI](images/receiverWeb.png)
-
-### Connection with Mechanical Actuation System
-
-Our mechanical actuation system will be sending data to our receiver MCU via 9 GPIO lines. 8 of them transmit data, and the last one is the clk, so that we can synchronize the incoming data and be able to read it correctly. The receiver end MCU is responsible for reading this data and concatenating each block of data, which will then be sent off to the receiver FPGA for decrytpion. 
 
 ### LCD Display Integration
 

@@ -15,9 +15,15 @@ title: "Documentation"
 | 3D Printed Rods                     | N/A                 | 9         | N/A            | Makerspace | N/A                                                                                             |
 | ESP8266                             | ESP-WROOM-02        | 2         | Edwin Robotics | Stockroom | N/A                                                                                             |
 | 3D Printer & PLA                    |        N/A          | N/A       | N/A            | Makerspace | N/A
+| 20 V 12 A Power Supply              |        72-6153      | 1         | TENMA          | Stockroom | N/A
+| 20 V 0.5 A Power Supply             |       E3630A        | 1       | HP            | Digital Lab | N/A
 | **Total**                           |                     |           |                | **$62.32**|                                                                                                 |
 
 : BOM for Final Project
+
+While we were working on our project, we did not realize how much current our 9 solenoids drew, especially when all of them were on. It was drawing around 0.85 A for each solenoid. The power supply at the digital lab only supplies a maximum of 0.5 A on the 20 V setting, which means we would always overload the power supply. Thus, we were able to use a big power supply that was in the stockroom, which supported up to 12 Amps. Below is a picture of the power supply:
+
+![20 V 12 Amp Power supply used for Solenoids](/assets/images/documentation/powerSupply.jpeg)
 
 ## Acknowledgements
 
