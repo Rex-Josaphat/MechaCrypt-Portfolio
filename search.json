@@ -235,7 +235,7 @@
     "href": "pages/results.html#software-results",
     "title": "Results",
     "section": "Software Results",
-    "text": "Software Results\nOur project sender side executes properly as desired. We are able to trigger all operations and send over the cyphertext and the key through the mechanical module properly. The receiver side was a shortcoming because we couldn’t properly sample the inputs from the receiver side that matches what was sent through by the sender side. However, we are confident that our modules perform the desired operations properly as shown in the testebench demonstrations below."
+    "text": "Software Results\nOur project sender side executes properly as desired. We are able to trigger all operations and send over the cyphertext and the key through the mechanical module properly. The receiver side was a shortcoming because we couldn’t properly sample the inputs from the receiver side that matches what was sent through by the sender side. However, we are confident that our modules perform the desired operations properly as shown in the testebench demonstrations below. We configured the testbench to have a lot of monitor signal so we can track bit by bit everything that is sent.\n\n\n\n\n\n\nFigure 1: Message Byte Receiver Module Testbench\n\n\n\nFromt the resuslts and the monitor signals above, we can see that the expected bytes are received and reconstructed at the end which is what we expect to happen.\n\n\n\n\n\n\nFigure 2: Debugging SPI\n\n\n\nThe debugging SPI also shows that we can properly shift out the bits to the MCU for use to check data."
   },
   {
     "objectID": "pages/results.html#hardware-results",

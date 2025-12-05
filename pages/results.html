@@ -42,6 +42,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-7f7c41a1ce220e856d2579a600b8e98a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -193,7 +196,29 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="software-results" class="level2">
 <h2 class="anchored" data-anchor-id="software-results">Software Results</h2>
-<p>Our project sender side executes properly as desired. We are able to trigger all operations and send over the cyphertext and the key through the mechanical module properly. The receiver side was a shortcoming because we couldn’t properly sample the inputs from the receiver side that matches what was sent through by the sender side. However, we are confident that our modules perform the desired operations properly as shown in the testebench demonstrations below.</p>
+<p>Our project sender side executes properly as desired. We are able to trigger all operations and send over the cyphertext and the key through the mechanical module properly. The receiver side was a shortcoming because we couldn’t properly sample the inputs from the receiver side that matches what was sent through by the sender side. However, we are confident that our modules perform the desired operations properly as shown in the testebench demonstrations below. We configured the testbench to have a lot of monitor signal so we can track bit by bit everything that is sent.</p>
+<div id="fig-byteR" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-byteR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="..\assets/images/results/msgReceive.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Message Byte Receiver Module Testbench"><img src="..\assets/images/results/msgReceive.png" class="img-fluid figure-img" style="width:80.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-byteR-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Message Byte Receiver Module Testbench
+</figcaption>
+</figure>
+</div>
+<p>Fromt the resuslts and the monitor signals above, we can see that the expected bytes are received and reconstructed at the end which is what we expect to happen.</p>
+<div id="fig-debugSPI" class="lightbox quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-debugSPI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<a href="..\assets/images/results/DebuggingSPI.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2" title="Figure&nbsp;2: Debugging SPI"><img src="..\assets/images/results/DebuggingSPI.png" class="img-fluid figure-img" style="width:80.0%"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-debugSPI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Debugging SPI
+</figcaption>
+</figure>
+</div>
+<p>The debugging SPI also shows that we can properly shift out the bits to the MCU for use to check data.</p>
 </section>
 <section id="hardware-results" class="level2">
 <h2 class="anchored" data-anchor-id="hardware-results">Hardware Results</h2>
@@ -625,6 +650,38 @@ Designed and developed by <a href="https://jngoga.vercel.app/" target="_blank"><
     </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 
