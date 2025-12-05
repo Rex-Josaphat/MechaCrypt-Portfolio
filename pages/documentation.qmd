@@ -2,6 +2,19 @@
 title: "Documentation"
 ---
 
+## Electrical Schematics
+ 
+ Below are pictures of the electrical schematics for our mechanical actuation system
+
+![Schemactic of the Sender Actuation Side](/assets/images/documentation/actuationSender.png){#fig-actSender .lightbox}
+
+![Schemactic of the Receiver Actuation Side](/assets/images/documentation/actuationReceiver.png){#fig-actReceiver .lightbox}
+
+The assembly of the LCD required a level shifter to boost voltages into the required range as shown below:
+
+![Level Shifter and ESP8266 Schematic](/assets/images/documentation/levelShifter.png){#fig-shifter .lightbox}
+
+
 ## Bill of Materials
 
 | Part Name                           | Part Number         | Quantity  | Vendor         | Price     | Link                                                                                            |
