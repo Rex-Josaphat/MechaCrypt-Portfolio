@@ -235,7 +235,7 @@
     "href": "pages/results.html#software-results",
     "title": "Results",
     "section": "Software Results",
-    "text": "Software Results"
+    "text": "Software Results\nOur project sender side executes properly as desired. We are able to trigger all operations and send over the cyphertext and the key through the mechanical module properly. The receiver side was a shortcoming because we couldn’t properly sample the inputs from the receiver side that matches what was sent through by the sender side. However, we are confident that our modules perform the desired operations properly as shown in the testebench demonstrations below."
   },
   {
     "objectID": "pages/results.html#hardware-results",
