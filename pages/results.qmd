@@ -8,11 +8,21 @@ format:
         icon: github
 ---
 
-## Overview
+## Overview And Conclusion
 
-The goal of this project was to allow the user to send any message, have it encrypted and sent over a mechanical system, get decrypted, and then displayed on a receiver end website. 
+The goal of this project was to allow the user to send any message, have it encrypted and sent over a mechanical system, get decrypted, and then displayed on a receiver end website. The entire pipeline works as expected: A user can input a message, it gets encrypted with a random key and sent over the mechanical system; the FPGA reads and decrypts data, sends it to the MCU for decryption. The main issue was that we couldn't properly debounce the receiver switches which meant that the received data is corrupted. When it's decrypted, the output on the receiver website is different from the sent message. Nonetheless, we were glad to have been able to demonstrate the working of the full pipeline despite the shortcomings from reading the limit switches. 
 
 ## Software Results
+
+Our project sender side executes properly as desired. We are able to trigger all operations and send over the cyphertext and the key through the mechanical module properly. The receiver side was a shortcoming because we couldn't properly sample the inputs from the receiver side that matches what was sent through by the sender side. However, we are confident that our modules perform the desired operations properly as shown in the testebench demonstrations below. We configured the testbench to have a lot of monitor signal so we can track bit by bit everything that is sent.
+
+![Message Byte Receiver Module Testbench](/assets/images/results/msgReceive.png){#fig-byteR width="60%" .lightbox}
+
+Fromt the resuslts and the monitor signals above, we can see that the expected bytes are received and reconstructed at the end which is what we expect to happen.
+
+![Debugging SPI](/assets/images/results/DebuggingSPI.png){#fig-debugSPI width="60%" .lightbox}
+
+The debugging SPI also shows that we can properly shift out the bits to the MCU for use to check data.
 
 ## Hardware Results
 

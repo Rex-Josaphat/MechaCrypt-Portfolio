@@ -3,8 +3,11 @@ title: "MCU Design"
 format:
   html: 
     code-links:
-      - text: "Code Repository"
-        href: https://github.com/chrwu17/MechaCrypt.git
+      - text: "Sender Code Repository"
+        href: https://github.com/chrwu17/MechaCrypt/tree/main/sender/mcu
+        icon: github
+      - text: "Receiver Code Repository"
+        href: https://github.com/chrwu17/MechaCrypt/tree/main/receiver/mcu
         icon: github
 ---
 

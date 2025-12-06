@@ -44,10 +44,6 @@ The modules to enforce the AES decryption and those that control the respective 
 
 ![Hierachical Block Diagram](/assets/images/AES/decryBlockDiagram.png){#fig-blockDiagram .lightbox}
 
-`aes_core()` involves multiple blocks and enabler logic that manages the flow of signals and data through the different transformations within the datapath as shown in @fig-coreBlockDiagram below:
-
-![aes_core() Hierachical Block Diagram](/assets/images/AES/decryCoreBlockDiagram.png){#fig-coreBlockDiagram .lightbox}
-
 To ensure proper functionality and communication, the full setup is installed on the development board. The board used already had DIP switches that connect specific MCU pins to specific FPGA pins which reduces the need for crossing wires. Other necessary signals like the debugging LEDs are setup on a side breadboard. The complete setup is shown in the following schematic:
 
 ![AES encryption Wiring Setup](/assets/images/AES/decrySchematic.png){#fig-schematic .lightbox}

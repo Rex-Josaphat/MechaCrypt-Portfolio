@@ -4,10 +4,10 @@ format:
   html: 
     code-links:
       - text: "Sender Code Repository"
-        href: https://github.com/chrwu17/MechaCrypt.git
+        href: https://github.com/chrwu17/MechaCrypt/tree/main/sender/fpga
         icon: github
       - text: "Receiver Code Repository"
-        href: https://github.com/chrwu17/MechaCrypt.git
+        href: https://github.com/chrwu17/MechaCrypt/tree/main/receiver/fpga
         icon: github
 ---
 
